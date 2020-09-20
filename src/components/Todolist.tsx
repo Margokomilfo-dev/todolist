@@ -12,8 +12,7 @@ export function Todolist (props: TodolistPropsType) {
     debugger
     return (
         <div>
-            <h3>{props.title}</h3>
-
+            <h3>{props.title}!!!!!!!!!!!!!!</h3>
             <div>
                 <input/>
                 <button>+</button>
