@@ -1,0 +1,15 @@
+.tasks {
+    padding: 20px 0;
+}
+.task {
+    display: flex;
+    border-bottom: 1px solid pink;
+
+}
+.taskCheckbox {
+    width: 30px;
+}
+.taskTitle {
+    width: 200px;
+
+}
