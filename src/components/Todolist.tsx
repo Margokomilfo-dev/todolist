@@ -18,7 +18,7 @@ export function Todolist(props: TodolistPropsType) {
 
     //-----------add task------------
     let addTask = (inputValue: string) => {
-        props.addNewTask(inputValue)
+        inputValue && props.addNewTask(inputValue)
         setInputValue('')
     }
     //-------------input-------------
