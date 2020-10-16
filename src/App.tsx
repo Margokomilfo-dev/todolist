@@ -3,8 +3,6 @@ import './App.css'
 import {Todolist} from './components/Todolist'
 import {v1} from "uuid"
 
-
-
 //----------types
 export type TasksType = {
     id: string
@@ -27,11 +25,12 @@ const tasks1 = [
 
 function App() {
 
-    //------------data----------
+//------------data----------
     let [tasks, setTasks] = useState<Array<TasksType>>(tasks1)
     let [filterValue, setFilterValue] = useState<FilterValuesType>('all')
+    console.log(filterValue)
 
-    //------------tasks------------
+//------------tasks------------
     const removeTask = (id: string) => {setTasks(tasks.filter(t => t.id !== id))}
 
     const addNewTask = (inputValue: string) => {
@@ -40,20 +39,29 @@ function App() {
         setTasks(newTasksArr)
     }
 
-    //-----------checkBox------------
-    const onChecked = (id: string) => {
-         let newArr = tasks.map(t => {
-             if (t.id === id && t.isDone){
-                 return {...t, isDone: false}
-             } else if (t.id === id && !t.isDone){
-                 return {...t, isDone: true}
-             }
-             return {...t}
-         })
-        setTasks(newArr)
-    }
+//-----------checkBox------------
+    const onCheckedBox = (id: string, value: boolean) => {
+        let checkedTask = tasks.find(t => t.id === id)
+         if (checkedTask){
+             checkedTask.isDone = value
+         }
+        setTasks([...tasks])
 
-    //----------filterValue-------
+
+    }
+//     const onChecked = (id: string) => {
+//          let newArr = tasks.map(t => {
+//              if (t.id === id && t.isDone){
+//                  return {...t, isDone: false}
+//              } else if (t.id === id && !t.isDone){
+//                  return {...t, isDone: true}
+//              }
+//              return {...t}
+//          })
+//         setTasks(newArr)
+//     }
+
+//----------filterValue-------
     let newArrTasks = tasks
     if (filterValue === 'active') { newArrTasks = tasks.filter(t => !t.isDone)}
     if (filterValue === 'completed') { newArrTasks = tasks.filter(t => t.isDone)}
@@ -66,7 +74,9 @@ function App() {
                       removeTask={removeTask}
                       changeFilter={changeFilter}
                       addNewTask={addNewTask}
-                      onChecked={onChecked}
+                      //onChecked={onChecked}
+                      onCheckedBox={onCheckedBox}
+                      filterValue={filterValue}
             />
         </div>
     );

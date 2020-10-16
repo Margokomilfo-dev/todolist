@@ -3,13 +3,33 @@
 }
 .task {
     display: flex;
-    border-bottom: 1px solid pink;
+    border-bottom: 1px solid hotpink;
 
+}
+.taskInput input {
+    width: 220px;
+    margin-left: 3px;
 }
 .taskCheckbox {
-    width: 30px;
+    opacity: .3;
 }
 .taskTitle {
+    padding-left: 10px;
     width: 200px;
 
+}
+.error {
+    color: red;
+    font-size: 12px;
+    margin-left: 3px;
+}
+.arrayInputAddTasks {
+    border: 2px solid red;
+}
+.activeButton {
+    background-color: #ffd0db;
+}
+
+.filterButtons button {
+    width: 33%;
 }
