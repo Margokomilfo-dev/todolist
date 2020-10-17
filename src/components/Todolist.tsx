@@ -3,14 +3,15 @@ import {TasksType, FilterValuesType} from "../App";
 import s from './Todolist.module.css'
 
 type TodolistPropsType = {
+    todolistId: string
     title: string
     newArrTasks: Array<TasksType>
-    removeTask: (id: string) => void
-    changeFilter: (value: FilterValuesType) => void
-    addNewTask: (inputValue: string) => void
-    //onChecked: (id: string) => void
-    onCheckedBox: (id: string, value: boolean) => void
-    filterValue: FilterValuesType
+    removeTask: (id: string, todolistId: string) => void
+    changeFilter: (value: FilterValuesType, todolistId: string) => void
+    addNewTask: (inputValue: string, todolistId: string) => void
+    removeTodolist: (todolistId: string) => void
+    onCheckedBox: (id: string, value: boolean, todolistId: string) => void
+    filter: FilterValuesType
 }
 
 export function Todolist(props: TodolistPropsType) {
@@ -19,10 +20,14 @@ export function Todolist(props: TodolistPropsType) {
     let [inputValue, setInputValue] = useState<string>('')
     let [error, setError] = useState<string | null>('')
 
+//--------delete todolist---------
+    let deleteTodolist = () => {
+        props.removeTodolist(props.todolistId)
+    }
 //-----------add task------------
     let addTask = (inputValue: string) => {
         if (inputValue.trim()) {
-            props.addNewTask(inputValue)
+            props.addNewTask(inputValue, props.todolistId)
             setInputValue('')
         } else {
             setError('field is required')
@@ -42,26 +47,31 @@ export function Todolist(props: TodolistPropsType) {
 
         setError(null)
         if (inputValue.trim() && e.key === 'Enter') {
-            props.addNewTask(inputValue)
+            props.addNewTask(inputValue, props.todolistId)
             setInputValue('')
         }
     }
 
+    let onClickCheckBox = (e: boolean, id: string) => {
+        props.onCheckedBox(id, e, props.todolistId)
+    }
 //-----------filter------------
     let onFilterAll = () => {
-        props.changeFilter('all')
+        props.changeFilter('all', props.todolistId)
     }
     let onFilterActive = () => {
-        props.changeFilter('active')
+        props.changeFilter('active', props.todolistId)
     }
     let onFilterCompleted = () => {
-        props.changeFilter('completed')
+        props.changeFilter('completed', props.todolistId)
     }
 
 
     return (
         <div>
-            <h3>{props.title}</h3>
+            <h3>{props.title}
+                <button onClick={deleteTodolist}>x</button>
+            </h3>
             <div className={s.taskInput}>
                 <input value={inputValue} onChange={onInputChange} onKeyPress={addInputText}
                        className={error ? s.arrayInputAddTasks : ''}/>
@@ -74,29 +84,26 @@ export function Todolist(props: TodolistPropsType) {
                 {props.newArrTasks.map(t =>
                     <div key={t.id} className={`${s.task} + ${t.isDone ? s.taskCheckbox : ''}`}>
                         <div>
-                            <input type="checkbox" checked={t.isDone} onClick={(e) => {
-                                //props.onChecked(t.id)
-                                props.onCheckedBox(t.id, e.currentTarget.checked)
-                            }}/>
+                            <input type="checkbox" checked={t.isDone} onClick={(e)=> {onClickCheckBox(e.currentTarget.checked, t.id)}}/>
                         </div>
                         <div className={s.taskTitle}>{t.title}</div>
                         <div className={s.taskBtn}>
                             <button onClick={() => {
-                                props.removeTask(t.id)
+                                props.removeTask(t.id, props.todolistId)
                             }}>X
                             </button>
                         </div>
                     </div>)}
             </div>
             <div className={s.filterButtons}>
-                <button onClick={onFilterAll} className={props.filterValue === 'all' ? s.activeButton : ''}> All</button>
-                <button onClick={onFilterActive} className={props.filterValue === 'active' ? s.activeButton : ''}>Active</button>
-                <button onClick={onFilterCompleted} className={props.filterValue === 'completed' ? s.activeButton : ''}>Completed</button>
+                <button onClick={onFilterAll} className={props.filter === 'all' ? s.activeButton : ''}> All</button>
+                <button onClick={onFilterActive} className={props.filter === 'active' ? s.activeButton : ''}>Active
+                </button>
+                <button onClick={onFilterCompleted}
+                        className={props.filter === 'completed' ? s.activeButton : ''}>Completed
+                </button>
             </div>
 
         </div>
     )
 }
-
-export default Todolist
-
