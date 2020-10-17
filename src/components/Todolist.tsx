@@ -1,5 +1,5 @@
-import React, {ChangeEvent, useState, KeyboardEvent} from "react";
-import {TasksType, FilterValuesType} from "../App";
+import React, {ChangeEvent, useState, KeyboardEvent} from "react"
+import {TasksType, FilterValuesType} from "../App"
 import s from './Todolist.module.css'
 
 type TodolistPropsType = {
