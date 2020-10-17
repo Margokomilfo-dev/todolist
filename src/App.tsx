@@ -57,8 +57,8 @@ function App() {
             {id: v1(), isDone: false, title: 'x3'}
         ],
         [todolistID4]: [
-            {id: v1(), isDone: true, title: 'task from Ignat'},
-            {id: v1(), isDone: true, title: 'code.mu'},
+            {id: v1(), isDone: false, title: 'task from Ignat'},
+            {id: v1(), isDone: false, title: 'code.mu'},
             {id: v1(), isDone: true, title: 'Codewars.com'}
         ]
     })

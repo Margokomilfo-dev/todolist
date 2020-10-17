@@ -69,9 +69,11 @@ export function Todolist(props: TodolistPropsType) {
 
     return (
         <div>
-            <h3>{props.title}
-                <button onClick={deleteTodolist}>x</button>
-            </h3>
+            <div className={s.todolistHeader}>
+                <div className={s.todolistTitle}>{props.title}</div>
+                <div><button onClick={deleteTodolist} className={s.todolistBtn}>x</button></div>
+
+            </div>
             <div className={s.taskInput}>
                 <input value={inputValue} onChange={onInputChange} onKeyPress={addInputText}
                        className={error ? s.arrayInputAddTasks : ''}/>
