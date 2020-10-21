@@ -1,8 +1,18 @@
-.App {
+.app {
   padding: 30px;
+}
+.addTodolist {
   display: flex;
+  margin-bottom: 20px;
+}
+.addTodolistTitle {
+  padding-right: 10px;
+}
+.allTodolists {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.App > div {
-  margin-right: 50px;
+.allTodolists > div {
+  margin-right: 30px;
 }

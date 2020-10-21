@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import './App.css'
-import {Todolist} from './components/Todolist/Todolist'
+import {AddForm, Todolist} from './components/Todolist/Todolist'
 import {v1} from "uuid"
 
 export type TasksType = {
@@ -9,7 +9,7 @@ export type TasksType = {
     isDone: boolean
 }
 export type FilterValuesType = "all" | "active" | "completed"
-export type TodolistsType = {
+export type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -22,7 +22,7 @@ function App() {
     const todolistID3 = v1()
     const todolistID4 = v1()
 
-    let [todolists, setTodolists] = useState<Array<TodolistsType>>([
+    let [todolists, setTodolists] = useState<Array<TodolistType>>([
         {id: todolistID1, title: 'What I want to learn', filter: 'all'},
         {id: todolistID2, title: 'React', filter: 'all'},
         {id: todolistID3, title: 'JS', filter: 'all'},
@@ -63,7 +63,7 @@ function App() {
     })
 //-----------todolists---------
     const removeTodolist = (todolistId: string) => {
-         let ourTodolists = todolists.filter(t => t.id !== todolistId)
+        let ourTodolists = todolists.filter(t => t.id !== todolistId)
         setTodolists(ourTodolists)
     }
 
@@ -75,6 +75,14 @@ function App() {
         setTasks({...tasks})
     }
 
+    const addNewTodolist = (inputValue: string) => {
+        let newTodolist: TodolistType = {id: v1(), title: inputValue, filter: 'all'}
+        setTodolists([newTodolist, ...todolists])
+        setTasks({
+            ...tasks,
+            [newTodolist.id]: []
+        })
+    }
 //------------tasks------------
     const removeTask = (taskId: string, todolistId: string) => {
         let tasksForTodolist = tasks[todolistId]
@@ -119,34 +127,41 @@ function App() {
     }
 
     return (
-        <div className="App">
-            {
-                todolists.map(tl => {
-                    let newArrTasks = tasks[tl.id]
-                    if (tl.filter === 'active') {
-                        newArrTasks = tasks[tl.id].filter(t => !t.isDone)
-                    }
-                    if (tl.filter === 'completed') {
-                        newArrTasks = tasks[tl.id].filter(t => t.isDone)
-                    }
-                    return (
-                        <Todolist
-                            key={tl.id}
-                            todolistId={tl.id}
-                            title={tl.title}
-                            filter={tl.filter}
-                            newArrTasks={newArrTasks}
-                            removeTask={removeTask}
-                            changeFilter={changeFilter}
-                            addNewTask={addNewTask}
-                            removeTodolist={removeTodolist}
-                            onCheckedBox={onCheckedBox}
-                            changeTodolistTitle={changeTodolistTitle}
-                            changeTaskTitleText={changeTaskTitleText}
-                        />
-                    )
-                })
-            }
+        <div className='app'>
+            <div className="addTodolist">
+                <div className='addTodolistTitle'>Add new TodoList: </div>
+                <AddForm addNewItem={(inputValue) => {addNewTodolist(inputValue)}}/>
+            </div>
+            <hr/>
+            <div className="allTodolists">
+                {
+                    todolists.map(tl => {
+                        let newArrTasks = tasks[tl.id]
+                        if (tl.filter === 'active') {
+                            newArrTasks = tasks[tl.id].filter(t => !t.isDone)
+                        }
+                        if (tl.filter === 'completed') {
+                            newArrTasks = tasks[tl.id].filter(t => t.isDone)
+                        }
+                        return (
+                            <Todolist
+                                key={tl.id}
+                                todolistId={tl.id}
+                                title={tl.title}
+                                filter={tl.filter}
+                                newArrTasks={newArrTasks}
+                                removeTask={removeTask}
+                                changeFilter={changeFilter}
+                                addNewTask={addNewTask}
+                                removeTodolist={removeTodolist}
+                                onCheckedBox={onCheckedBox}
+                                changeTodolistTitle={changeTodolistTitle}
+                                changeTaskTitleText={changeTaskTitleText}
+                            />
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }
