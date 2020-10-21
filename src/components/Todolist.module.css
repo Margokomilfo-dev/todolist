@@ -37,12 +37,12 @@
     display: flex;
     justify-content: center;
 }
-.todolistTitle {
-    margin: 0 10px 15px 0;
-    font-size: 18px;
-    font-weight: 600;
-    text-decoration: underline;
-}
+/*.todolistTitle {*/
+/*    margin: 0 10px 15px 0;*/
+/*    font-size: 18px;*/
+/*    font-weight: 600;*/
+/*    text-decoration: underline;*/
+/*}*/
 .todolistBtn {
     width: 40px;
 }

@@ -64,9 +64,7 @@ function App() {
 //-----------todolists---------
     const removeTodolist = (todolistId: string) => {
          let ourTodolists = todolists.filter(t => t.id !== todolistId)
-
         setTodolists(ourTodolists)
-
     }
 
 //------------tasks------------

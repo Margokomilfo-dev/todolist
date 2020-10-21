@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react"
 import {TasksType, FilterValuesType} from "../App"
 import s from './Todolist.module.css'
+import { ChangedSpanIntoInput } from "./ChangedSpanIntoInput"
 
 type TodolistPropsType = {
     todolistId: string
@@ -66,13 +67,11 @@ export function Todolist(props: TodolistPropsType) {
         props.changeFilter('completed', props.todolistId)
     }
 
-
     return (
         <div>
             <div className={s.todolistHeader}>
-                <div className={s.todolistTitle}>{props.title}</div>
-                <div><button onClick={deleteTodolist} className={s.todolistBtn}>x</button></div>
-
+               <ChangedSpanIntoInput title={props.title}/>
+               <div><button onClick={deleteTodolist} className={s.todolistBtn}>x</button></div>
             </div>
             <div className={s.taskInput}>
                 <input value={inputValue} onChange={onInputChange} onKeyPress={addInputText}
