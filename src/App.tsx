@@ -15,7 +15,6 @@ export type TodolistsType = {
     filter: FilterValuesType
 }
 
-
 function App() {
 
     const todolistID1 = v1()
