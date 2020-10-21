@@ -70,7 +70,10 @@ export function Todolist(props: TodolistPropsType) {
     return (
         <div>
             <div className={s.todolistHeader}>
-               <ChangedSpanIntoInput title={props.title}/>
+                <div className={s.todolistTitle}>
+                    <ChangedSpanIntoInput title={props.title}/>
+                </div>
+
                <div><button onClick={deleteTodolist} className={s.todolistBtn}>x</button></div>
             </div>
             <div className={s.taskInput}>
@@ -87,12 +90,11 @@ export function Todolist(props: TodolistPropsType) {
                         <div>
                             <input type="checkbox" checked={t.isDone} onClick={(e)=> {onClickCheckBox(e.currentTarget.checked, t.id)}}/>
                         </div>
-                        <div className={s.taskTitle}>{t.title}</div>
+                        <div className={s.taskTitle}>
+                            <ChangedSpanIntoInput title={t.title}/>
+                        </div>
                         <div className={s.taskBtn}>
-                            <button onClick={() => {
-                                props.removeTask(t.id, props.todolistId)
-                            }}>X
-                            </button>
+                            <button onClick={() => {props.removeTask(t.id, props.todolistId)}}>X</button>
                         </div>
                     </div>)}
             </div>
