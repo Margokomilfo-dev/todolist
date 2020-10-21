@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import './App.css'
-import {Todolist} from './components/Todolist'
+import {Todolist} from './components/Todolist/Todolist'
 import {v1} from "uuid"
 
 export type TasksType = {
@@ -67,6 +67,14 @@ function App() {
         setTodolists(ourTodolists)
     }
 
+    const changeTodolistTitle = (title: string, todolistId: string) => {
+        let ourTodolist = todolists.find(t => t.id === todolistId)
+        if (ourTodolist) {
+            ourTodolist.title = title
+        }
+        setTasks({...tasks})
+    }
+
 //------------tasks------------
     const removeTask = (taskId: string, todolistId: string) => {
         let tasksForTodolist = tasks[todolistId]
@@ -82,7 +90,14 @@ function App() {
         tasks[todolistId] = ourTodolistWithNewTask
         setTasks({...tasks})
     }
-
+    const changeTaskTitleText = (taskId: string, newTitle: string, todolistId: string) => {
+        let ourTodolist = tasks[todolistId]
+        let ourTask = ourTodolist.find(t => t.id === taskId)
+        if (ourTask) {
+            ourTask.title = newTitle
+        }
+        setTasks({...tasks})
+    }
 //-----------checkBox------------
     const onCheckedBox = (id: string, value: boolean, todolistId: string) => {
         let ourTodolist = tasks[todolistId]
@@ -126,6 +141,8 @@ function App() {
                             addNewTask={addNewTask}
                             removeTodolist={removeTodolist}
                             onCheckedBox={onCheckedBox}
+                            changeTodolistTitle={changeTodolistTitle}
+                            changeTaskTitleText={changeTaskTitleText}
                         />
                     )
                 })

@@ -1,7 +1,8 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useState} from "react"
 
 type ChangedSpanIntoInputPropsType = {
     title: string
+    changeItemText: (value: string) => void
 }
 export function ChangedSpanIntoInput(props: ChangedSpanIntoInputPropsType) {
     let [editMod, setEditMod] = useState(false)
@@ -14,6 +15,7 @@ export function ChangedSpanIntoInput(props: ChangedSpanIntoInputPropsType) {
     //----OFF-----
     const editModOff = () => {
         setEditMod(false)
+        props.changeItemText(value)
     }
     //-----input------
     const onChangeInputText = (e:ChangeEvent<HTMLInputElement>) => {
