@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import './App.css'
 import {AddForm, Todolist} from './components/Todolist/Todolist'
-import {v1} from "uuid"
+import {v1} from "uuid";
 
 export type TasksType = {
     id: string
