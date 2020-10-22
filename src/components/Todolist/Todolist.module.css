@@ -1,39 +1,50 @@
 .todolist {
-    border: 2px solid grey;
-    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
     margin-bottom: 10px;
+    padding: 10px;
+
+    border: 2px solid grey;
 }
+
 .tasks {
     padding: 20px 0;
 }
+
 .task {
     display: flex;
-    border-bottom: 1px solid hotpink;
 
+    border-bottom: 1px solid hotpink;
 }
+
 .taskInput input {
     width: 220px;
     margin-left: 3px;
 }
+
 .taskCheckbox {
     opacity: .3;
 }
-.taskTitle {
-    padding-left: 10px;
-    width: 200px;
 
+.taskTitle {
+    width: 200px;
+    padding-left: 10px;
 }
+
 .error {
-    color: red;
     font-size: 12px;
+
     margin-left: 3px;
+
+    color: red;
 }
+
 .arrayInputAddTasks {
     border: 2px solid red;
 }
+
 .activeButton {
     background-color: #ffd0db;
 }
@@ -41,16 +52,21 @@
 .filterButtons button {
     width: 33%;
 }
-.todolistHeader{
+
+.todolistHeader {
     display: flex;
     justify-content: center;
 }
+
 .todolistTitle {
-    margin: 0 10px 15px 0;
     font-size: 18px;
     font-weight: 600;
+
+    margin: 0 10px 15px 0;
+
     text-decoration: underline;
 }
+
 .todolistBtn {
     width: 40px;
 }
