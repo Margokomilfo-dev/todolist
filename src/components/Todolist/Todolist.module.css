@@ -2,26 +2,24 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    margin-bottom: 10px;
-    padding: 10px;
-
-    border: 2px solid grey;
-}
-
-.tasks {
-    padding: 20px 0;
+    padding: 10px 5px;
+    margin-bottom: 20px;
+    min-height: 550px;
+    width: 250px;
 }
 
 .task {
     display: flex;
-
-    border-bottom: 1px solid hotpink;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
 }
-
+.taskInput {
+    margin: 10px 0;
+}
 .taskInput input {
-    width: 220px;
-    margin-left: 3px;
+    width: 170px;
+    height: 10px;
 }
 
 .taskCheckbox {
@@ -29,13 +27,11 @@
 }
 
 .taskTitle {
-    width: 200px;
-    padding-left: 10px;
+    width: 180px;
 }
 
 .error {
     font-size: 12px;
-
     margin-left: 3px;
 
     color: red;
@@ -49,24 +45,17 @@
     background-color: #ffd0db;
 }
 
-.filterButtons button {
-    width: 33%;
-}
 
 .todolistHeader {
     display: flex;
     justify-content: center;
+    background-color: #e9e9e9;
 }
 
 .todolistTitle {
     font-size: 18px;
     font-weight: 600;
+    display: flex;
+    margin: 10px 0 15px 0;
 
-    margin: 0 10px 15px 0;
-
-    text-decoration: underline;
-}
-
-.todolistBtn {
-    width: 40px;
 }

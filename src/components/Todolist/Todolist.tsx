@@ -3,6 +3,11 @@ import {FilterValuesType, TasksType} from "../../App"
 import s from './Todolist.module.css'
 import {ChangedSpanIntoInput} from "../ChangedSpanIntoInput"
 import {TodolistHeader} from "../TodolistHeader"
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
+import {Button, Icon, TextField} from "@material-ui/core"
+import AddCircleOutlineTwoToneIcon from '@material-ui/icons/AddCircleOutlineTwoTone';
+import { AddForm } from "./AddForm"
 
 type TodolistPropsType = {
     todolistId: string
@@ -62,68 +67,32 @@ export function Todolist(props: TodolistPropsType) {
                                 }}/>
                             </div>
                             <div className={s.taskBtn}>
-                                <button onClick={() => {
-                                    props.removeTask(t.id, props.todolistId)
-                                }}>X
-                                </button>
+                                {/*<button onClick={() => { props.removeTask(t.id, props.todolistId)}}>X</button>*/}
+
+                                <IconButton aria-label="delete" onClick={() => {props.removeTask(t.id, props.todolistId) }}>
+                                    <DeleteIcon />
+                                </IconButton>
+
                             </div>
                         </div>)}
                 </div>
             </div>
+
             <div className={s.filterButtons}>
-                <button onClick={onFilterAll} className={props.filter === 'all' ? s.activeButton : ''}> All</button>
-                <button onClick={onFilterActive} className={props.filter === 'active' ? s.activeButton : ''}>Active
-                </button>
-                <button onClick={onFilterCompleted}
-                        className={props.filter === 'completed' ? s.activeButton : ''}>Completed
-                </button>
+                <Button onClick={onFilterAll}
+                        variant={props.filter === 'all' ? 'outlined' : 'contained'}
+                        size={'small'}
+                        style={{margin: '2px', width: '78px', fontSize: '11px'}}> All</Button>
+                <Button onClick={onFilterActive}
+                        variant ={props.filter === 'active' ? 'outlined' : 'contained'}
+                        size={'small'}
+                        style={{margin: '2px', width: '78px', fontSize: '11px'}}>Active</Button>
+                <Button onClick={onFilterCompleted}
+                        variant={props.filter === 'completed' ? 'outlined' : 'contained'}
+                        size={'small'}
+                        style={{margin: '2px', width: '78px', fontSize: '11px'}}>Completed</Button>
             </div>
 
-        </div>
-    )
-}
-type AddFormPropsType = {
-    addNewItem: (inputValue: string) => void
-}
-export function AddForm(props: AddFormPropsType){
-    //data
-    let [inputValue, setInputValue] = useState<string>('')
-    let [error, setError] = useState<string | null>('')
-
-//-----------add task------------
-    let addTask = (inputValue: string) => {
-        if (inputValue.trim()) {
-            props.addNewItem(inputValue)
-            setInputValue('')
-        } else {
-            setError('field is required')
-        }
-    }
-    let addTasks = () => {
-        addTask(inputValue)
-    }
-
-//-------------input-------------
-    let onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        inputValue.trim() && setError(null)
-        setInputValue(e.currentTarget.value)
-
-    }
-    let addInputText = (e: KeyboardEvent<HTMLInputElement>) => {
-
-        setError(null)
-        if (inputValue.trim() && e.key === 'Enter') {
-            props.addNewItem(inputValue)
-            setInputValue('')
-        }
-    }
-
-    return(
-        <div className={s.taskInput}>
-            <input value={inputValue} onChange={onInputChange} onKeyPress={addInputText}
-                   className={error ? s.arrayInputAddTasks : ''}/>
-            <button onClick={addTasks}>+</button>
-            {error ? <div className={s.error}> {error} </div> : null}
         </div>
     )
 }

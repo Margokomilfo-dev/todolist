@@ -3,10 +3,9 @@
 }
 .addTodolist {
   display: flex;
-  margin-bottom: 20px;
 }
 .addTodolistTitle {
-  padding-right: 10px;
+  padding: 30px 10px 0 10px;
 }
 .allTodolists {
   display: flex;
