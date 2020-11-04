@@ -1,8 +1,8 @@
 import React from "react"
-import {FilterValuesType, TasksType} from "../../App"
+import {FilterValuesType, TasksType} from "../App"
 import s from './Todolist.module.css'
-import {ChangedSpanIntoInput} from "../ChangedSpanIntoInput"
-import {TodolistHeader} from "../TodolistHeader"
+import {ChangedSpanIntoInput} from "./ChangedSpanIntoInput"
+import {TodolistHeader} from "./TodolistHeader"
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {Button} from "@material-ui/core"

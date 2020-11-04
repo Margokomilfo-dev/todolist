@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import './App.css'
-import {Todolist} from './components/Todolist/Todolist'
+import {Todolist} from './components/Todolist'
 import {v1} from "uuid";
-import {AddForm} from "./components/Todolist/AddForm";
+import {AddForm} from "./components/AddForm";
 import {AppBar, Button, IconButton, Toolbar, Typography, Container, Grid, Paper} from '@material-ui/core';
 import {Menu} from "@material-ui/icons";
 
@@ -88,6 +88,7 @@ function App() {
         let ourTodolists = todolists.filter(t => t.id !== todolistId)
         setTodolists(ourTodolists)
     }
+
 //------------tasks------------
     const removeTask = (taskId: string, todolistId: string) => {
         let tasksForTodolist = tasks[todolistId]
