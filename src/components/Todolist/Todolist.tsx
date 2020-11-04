@@ -1,12 +1,11 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react"
+import React from "react"
 import {FilterValuesType, TasksType} from "../../App"
 import s from './Todolist.module.css'
 import {ChangedSpanIntoInput} from "../ChangedSpanIntoInput"
 import {TodolistHeader} from "../TodolistHeader"
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
-import {Button, Icon, TextField} from "@material-ui/core"
-import AddCircleOutlineTwoToneIcon from '@material-ui/icons/AddCircleOutlineTwoTone';
+import {Button} from "@material-ui/core"
 import { AddForm } from "./AddForm"
 
 type TodolistPropsType = {
@@ -92,7 +91,6 @@ export function Todolist(props: TodolistPropsType) {
                         size={'small'}
                         style={{margin: '2px', width: '78px', fontSize: '11px'}}>Completed</Button>
             </div>
-
         </div>
     )
 }
