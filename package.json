@@ -1,4 +1,5 @@
 {
+  "homepage" : "https://margokomilfo-dev.github.io/it-incubator-todolist/",
   "name": "it-incubator-todolist-ts",
   "version": "0.1.0",
   "private": true,
@@ -23,7 +24,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,6 +44,7 @@
     ]
   },
   "devDependencies": {
-    "csscomb": "^4.3.0"
+    "csscomb": "^4.3.0",
+    "gh-pages": "^3.1.0"
   }
 }
