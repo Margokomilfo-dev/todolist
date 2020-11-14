@@ -69,7 +69,7 @@ function App() {
 
     const addNewTodolist = (inputValue: string) => {
         let newTodolist: TodolistType = {id: v1(), title: inputValue, filter: 'all'}
-        setTodolists([newTodolist, ...todolists])
+        setTodolists([...todolists, newTodolist])
         setTasks({
             ...tasks,
             [newTodolist.id]: []
@@ -100,7 +100,7 @@ function App() {
     const addNewTask = (inputValue: string, todolistId: string) => {
         let newTask = {id: v1(), isDone: false, title: inputValue}
         let ourTodolist = tasks[todolistId]
-        let ourTodolistWithNewTask = [newTask, ...ourTodolist]
+        let ourTodolistWithNewTask = [...ourTodolist, newTask]
         tasks[todolistId] = ourTodolistWithNewTask
         setTasks({...tasks})
     }

@@ -1,7 +1,7 @@
 import {v1} from "uuid"
 import {TodolistType} from "../../App"
 import {addTodolistAC,removeTodolistAC,todolistReducer,
-    changeTodolistTitleAC,changeTodolistFilterValueAC} from "./todolistsReducer";
+    changeTodolistTitleAC,changeTodolistFilterValueAC} from "./todolistsReducer"
 
 let todolists: Array<TodolistType>;
 const todolistID1: string = v1()
