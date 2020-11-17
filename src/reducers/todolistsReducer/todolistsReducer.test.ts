@@ -9,8 +9,8 @@ const todolistID2: string = v1()
 
 beforeEach(() => {
     todolists = [
-        {id: v1(), title: 'What I want to learn', filter: 'all'},
-        {id: v1(), title: 'React', filter: 'all'},
+        {id: todolistID1, title: 'What I want to learn', filter: 'all'},
+        {id: todolistID2, title: 'React', filter: 'all'},
     ]
 });
 

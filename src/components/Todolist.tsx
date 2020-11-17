@@ -1,5 +1,5 @@
 import React from "react"
-import {FilterValuesType, TasksType} from "../App"
+import {FilterValuesType, TaskType} from "../App"
 import s from './Todolist.module.css'
 import {ChangedSpanIntoInput} from "./ChangedSpanIntoInput"
 import {TodolistHeader} from "./TodolistHeader"
@@ -11,7 +11,7 @@ import { AddForm } from "./AddForm"
 type TodolistPropsType = {
     todolistId: string
     title: string
-    newArrTasks: Array<TasksType>
+    newArrTasks: Array<TaskType>
     removeTask: (id: string, todolistId: string) => void
     changeFilter: (value: FilterValuesType, todolistId: string) => void
     addNewTask: (inputValue: string, todolistId: string) => void
