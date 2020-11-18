@@ -1,5 +1,12 @@
 import {TasksType, TaskType} from "../../App";
 import {v1} from "uuid";
+import {
+    ADD_TODOLIST,
+    addTodolistAC,
+    REMOVE_TODOLIST,
+    removeTodolistAC,
+    TodolistType
+} from "../todolistsReducer/todolistsReducer";
 
 export enum ActionsTypes {
     ADD_TASK = 'ADD_TASK',
@@ -9,6 +16,9 @@ export enum ActionsTypes {
 }
 
 type ActionsType = ReturnType<ActionType<typeof actions>>
+    | ReturnType<typeof addTodolistAC>
+    | ReturnType<typeof removeTodolistAC>
+
 export const tasksReducer = (state: TasksType, action: ActionsType) => {
     switch (action.type) {
         case ActionsTypes.ADD_TASK:
@@ -34,6 +44,16 @@ export const tasksReducer = (state: TasksType, action: ActionsType) => {
                 ...state,
                 [action.todolistId]: state[action.todolistId]
                     .map(task => task.id === action.taskId ? {...task, isDone: action.value} : task)
+            }
+        case ADD_TODOLIST:{
+                const stateCopy = {...state}
+                stateCopy[action.todolistId] = []
+                return stateCopy
+            }
+        case REMOVE_TODOLIST:{
+                const stateCopy = {...state}
+                delete stateCopy[action.id]
+                return stateCopy
             }
         default:
             return state
