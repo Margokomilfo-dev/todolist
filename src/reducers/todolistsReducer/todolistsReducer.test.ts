@@ -4,10 +4,12 @@ import {addTodolistAC,removeTodolistAC,todolistReducer,
     changeTodolistTitleAC,changeTodolistFilterValueAC} from "./todolistsReducer"
 
 let todolists: Array<TodolistType>;
-const todolistID1: string = v1()
-const todolistID2: string = v1()
+let todolistID1: string
+let todolistID2: string
 
 beforeEach(() => {
+    todolistID1 = v1()
+    todolistID2 = v1()
     todolists = [
         {id: todolistID1, title: 'What I want to learn', filter: 'all'},
         {id: todolistID2, title: 'React', filter: 'all'},
