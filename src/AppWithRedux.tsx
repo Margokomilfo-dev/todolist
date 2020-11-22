@@ -98,26 +98,26 @@ function AppWithRedux() {
     }
 
 //------------tasks------------
-    const removeTask = (taskId: string, todolistId: string) => {
-        dispatch(actions.removeTaskAC(todolistId,taskId))
-    }
+//     const removeTask = (taskId: string, todolistId: string) => {
+//         dispatch(actions.removeTaskAC(todolistId,taskId))
+//     }
 
-    const addNewTask = (inputValue: string, todolistId: string) => {
-        dispatch(actions.addNewTaskAC(todolistId, inputValue))
-    }
-    const changeTaskTitleText = (taskId: string, newTitle: string, todolistId: string) => {
-        dispatch(actions.changeTaskTitleTextAC(todolistId, taskId, newTitle))
-    }
+    // const addNewTask = (inputValue: string, todolistId: string) => {
+    //     dispatch(actions.addNewTaskAC(todolistId, inputValue))
+    // }
+    // const changeTaskTitleText = (taskId: string, newTitle: string, todolistId: string) => {
+    //     dispatch(actions.changeTaskTitleTextAC(todolistId, taskId, newTitle))
+    // }
 //-----------checkBox------------
-    const onCheckedBox = (id: string, value: boolean, todolistId: string) => {
-        dispatch(actions.changeCheckedStatusAC(todolistId, id, value))
-    }
+//     const onCheckedBox = (id: string, value: boolean, todolistId: string) => {
+//         dispatch(actions.changeCheckedStatusAC(todolistId, id, value))
+//     }
 
 //----------filterValue-------
 
-    const changeFilter = (value: FilterValuesType, todolistId: string) => {
-        dispatch(changeTodolistFilterValueAC(todolistId, value))
-    }
+    // const changeFilter = (value: FilterValuesType, todolistId: string) => {
+    //     dispatch(changeTodolistFilterValueAC(todolistId, value))
+    // }
 
     return (
 
@@ -161,13 +161,13 @@ function AppWithRedux() {
                                                 title={tl.title}
                                                 filter={tl.filter}
                                                 newArrTasks={newArrTasks}
-                                                removeTask={removeTask}
-                                                changeFilter={changeFilter}
-                                                addNewTask={addNewTask}
+                                                // removeTask={removeTask}
+                                                // changeFilter={changeFilter}
+                                                // addNewTask={addNewTask}
                                                 removeTodolist={removeTodolist}
-                                                onCheckedBox={onCheckedBox}
+                                                //onCheckedBox={onCheckedBox}
                                                 changeTodolistTitle={changeTodolistTitle}
-                                                changeTaskTitleText={changeTaskTitleText}
+                                                //changeTaskTitleText={changeTaskTitleText}
                                             />
                                         </Paper>
                                     </Grid>

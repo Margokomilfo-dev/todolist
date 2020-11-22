@@ -7,50 +7,65 @@ import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import {Button} from "@material-ui/core"
 import { AddForm } from "./AddForm"
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../store/store";
+import {TodolistType} from "../AppWithRedux";
+import {actions} from "../store/tasksReducer/tasksReducer";
+import {changeTodolistFilterValueAC} from "../store/todolistsReducer/todolistsReducer";
 
 type TodolistPropsType = {
     todolistId: string
     title: string
     newArrTasks: Array<TaskType>
-    removeTask: (id: string, todolistId: string) => void
-    changeFilter: (value: FilterValuesType, todolistId: string) => void
-    addNewTask: (inputValue: string, todolistId: string) => void
+    removeTask?: (id: string, todolistId: string) => void
+    changeFilter?: (value: FilterValuesType, todolistId: string) => void
+    addNewTask?: (inputValue: string, todolistId: string) => void
     removeTodolist: (todolistId: string) => void
-    onCheckedBox: (id: string, value: boolean, todolistId: string) => void
+    onCheckedBox?: (id: string, value: boolean, todolistId: string) => void
     filter: FilterValuesType
     changeTodolistTitle: (newTitle: string, todolistId: string) => void
-    changeTaskTitleText: (taskId: string, newTitle: string, todolistId: string) => void
+    changeTaskTitleText?: (taskId: string, newTitle: string, todolistId: string) => void
 }
 
 export function Todolist(props: TodolistPropsType) {
 
+    // @ts-ignore
+    let todolist = useSelector<AppRootStateType, TodolistType>(state => state.todolists[props.todolistId])
+    let dispatch = useDispatch()
+
     let onClickCheckBox = (e: boolean, id: string) => {
-        props.onCheckedBox(id, e, props.todolistId)
+        //props.onCheckedBox(id, e, props.todolistId)
+        dispatch(actions.changeCheckedStatusAC(props.todolistId, id, e))
     }
 //-----------filter------------
     let onFilterAll = () => {
-        props.changeFilter('all', props.todolistId)
+        //props.changeFilter('all', props.todolistId)
+        dispatch(changeTodolistFilterValueAC(props.todolistId, 'all'))
     }
     let onFilterActive = () => {
-        props.changeFilter('active', props.todolistId)
+        //props.changeFilter('active', props.todolistId)
+        dispatch(changeTodolistFilterValueAC(props.todolistId, 'active'))
     }
     let onFilterCompleted = () => {
-        props.changeFilter('completed', props.todolistId)
+        //props.changeFilter('completed', props.todolistId)
+        dispatch(changeTodolistFilterValueAC(props.todolistId, 'completed'))
     }
 //------------title------------
     const onChangeTaskTitleText = (taskId: string, newTitle: string, todolistId: string) => {
-        props.changeTaskTitleText(taskId, newTitle, props.todolistId)
+        //props.changeTaskTitleText(taskId, newTitle, todolist.id)
+        dispatch(actions.changeTaskTitleTextAC(props.todolistId, taskId, newTitle))
     }
     //----add tasks---
-    const addNewTask = (inputValue: string) => {
-        props.addNewTask(inputValue, props.todolistId)
-    }
+    //const addNewTask = (inputValue: string) => {
+        //props.addNewTask(inputValue, props.todolistId)
+        //dispatch(actions.addNewTaskAC(props.todolistId, inputValue))
+    //}
     return (
         <div className={s.todolist}>
             <div>
                 <TodolistHeader title={props.title} todolistId={props.todolistId} removeTodolist={props.removeTodolist}
                                 changeTodolistTitle={props.changeTodolistTitle}/>
-                <AddForm  addNewItem={addNewTask}/>
+                <AddForm  addNewItem={(inputValue) => {dispatch(actions.addNewTaskAC(props.todolistId, inputValue))}}/>
 
                 <div className={s.tasks}>
                     {props.newArrTasks.map(t =>
@@ -68,7 +83,8 @@ export function Todolist(props: TodolistPropsType) {
                             <div className={s.taskBtn}>
                                 {/*<button onClick={() => { props.removeTask(t.id, props.todolistId)}}>X</button>*/}
 
-                                <IconButton aria-label="delete" onClick={() => {props.removeTask(t.id, props.todolistId) }}>
+                                {/*<IconButton aria-label="delete" onClick={() => {props.removeTask(t.id, props.todolistId) }}>*/}
+                                <IconButton aria-label="delete" onClick={() => {dispatch(actions.removeTaskAC(props.todolistId,t.id))}}>
                                     <DeleteIcon />
                                 </IconButton>
 
