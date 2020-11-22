@@ -19,7 +19,9 @@ type ActionsType = ReturnType<ActionType<typeof actions>>
     | ReturnType<typeof addTodolistAC>
     | ReturnType<typeof removeTodolistAC>
 
-export const tasksReducer = (state: TasksType, action: ActionsType) => {
+const initialState: TasksType = {}
+
+export const tasksReducer = (state: TasksType = initialState, action: ActionsType) => {
     switch (action.type) {
         case ActionsTypes.ADD_TASK:
             const newTask: TaskType = {id: action.id, isDone: false, title: action.title}
@@ -61,8 +63,8 @@ export const tasksReducer = (state: TasksType, action: ActionsType) => {
 }
 type ActionType<T> = T extends { [key: string]: infer U } ? U : never
 export const actions = {
-    addNewTask: (todolistId: string, title: string) => ({type: ActionsTypes.ADD_TASK, todolistId, title, id: v1() } as const),
-    removeTask: (todolistId: string, taskId: string) => ({type: ActionsTypes.REMOVE_TASK, todolistId, taskId} as const),
-    changeTaskTitleText: (todolistId: string, taskId: string, newTitle: string) => ({ type: ActionsTypes.CHANGE_TASK_TITLE, todolistId, taskId, newTitle } as const),
-    changeCheckedStatus: (todolistId: string, taskId: string, value: boolean) => ({ type: ActionsTypes.CHANGE_CHECKED_STATUS, todolistId, taskId, value } as const),
+    addNewTaskAC: (todolistId: string, title: string) => ({type: ActionsTypes.ADD_TASK, todolistId, title, id: v1() } as const),
+    removeTaskAC: (todolistId: string, taskId: string) => ({type: ActionsTypes.REMOVE_TASK, todolistId, taskId} as const),
+    changeTaskTitleTextAC: (todolistId: string, taskId: string, newTitle: string) => ({ type: ActionsTypes.CHANGE_TASK_TITLE, todolistId, taskId, newTitle } as const),
+    changeCheckedStatusAC: (todolistId: string, taskId: string, value: boolean) => ({ type: ActionsTypes.CHANGE_CHECKED_STATUS, todolistId, taskId, value } as const),
 }

@@ -1,5 +1,5 @@
 {
-  "homepage" : "https://margokomilfo-dev.github.io/it-incubator-todolist/",
+  "homepage": "https://margokomilfo-dev.github.io/it-incubator-todolist/",
   "name": "it-incubator-todolist-ts",
   "version": "0.1.0",
   "private": true,
@@ -13,10 +13,13 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/react-redux": "^7.1.11",
     "@types/uuid": "^8.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.2",
     "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
     "typescript": "~3.7.2",
     "uuid": "^8.3.0"
   },

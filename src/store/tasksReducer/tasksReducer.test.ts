@@ -41,12 +41,12 @@ beforeEach(() => {
 
 test('Add new task', () => {
 
-    const endState: TasksType = tasksReducer(state, actions.addNewTask(todolistID2, 'hello'))
+    const endState: TasksType = tasksReducer(state, actions.addNewTaskAC(todolistID2, 'hello'))
     expect(endState[todolistID2].length).toBe(3)
 })
 
 test('Remove task', () => {
-    const endState: TasksType = tasksReducer(state2, actions.removeTask(todolistID2, '3'))
+    const endState: TasksType = tasksReducer(state2, actions.removeTaskAC(todolistID2, '3'))
     expect(endState).toEqual({
         [todolistID1]: [
             {id: '1', isDone: true, title: 'HTML/CSS'},
@@ -64,7 +64,7 @@ test('Remove task', () => {
 
 test('Change a title of task', () => {
 
-    const endState: TasksType = tasksReducer(state2, actions.changeTaskTitleText(todolistID2, '1', 'newTask'))
+    const endState: TasksType = tasksReducer(state2, actions.changeTaskTitleTextAC(todolistID2, '1', 'newTask'))
 
     expect(endState).toEqual({
         [todolistID1]: [
@@ -84,7 +84,7 @@ test('Change a title of task', () => {
 
 test('Change a status of task', () => {
 
-    const endState: TasksType = tasksReducer(state2, actions.changeCheckedStatus(todolistID2, '1', false))
+    const endState: TasksType = tasksReducer(state2, actions.changeCheckedStatusAC(todolistID2, '1', false))
 
     expect(endState).toEqual({
         [todolistID1]: [

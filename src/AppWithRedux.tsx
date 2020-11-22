@@ -1,7 +1,6 @@
 import React, {useState, useReducer} from 'react'
 import './App.css'
 import {Todolist} from './components/Todolist'
-import {v1} from "uuid"
 import {AddForm} from "./components/AddForm"
 import {AppBar, Button, IconButton, Toolbar, Typography, Container, Grid, Paper} from '@material-ui/core'
 import {Menu} from "@material-ui/icons"
@@ -13,6 +12,8 @@ import {
     changeTodolistFilterValueAC
 } from "./store/todolistsReducer/todolistsReducer"
 import {actions, tasksReducer} from './store/tasksReducer/tasksReducer'
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "./store/store";
 
 export type TaskType = {
     id: string
@@ -29,90 +30,93 @@ export type TasksType = {
     [key: string]: Array<TaskType>
 }
 
-function AppWithUseReducer() {
+function AppWithRedux() {
 
-    const todolistID1 = v1()
-    const todolistID2 = v1()
-    const todolistID3 = v1()
-    const todolistID4 = v1()
+    let todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
+    let tasks = useSelector<AppRootStateType, TasksType>(state => state.tasks)
 
-    let [todolists, dispatchToTodolist] = useReducer(todolistReducer, [
-        {id: todolistID1, title: 'What I want to learn', filter: 'all'},
-        {id: todolistID2, title: 'React', filter: 'all'},
-        {id: todolistID3, title: 'JS', filter: 'all'},
-        {id: todolistID4, title: 'Useful', filter: 'all'},
-    ])
-
-    let [tasks, dispatchToTasks] = useReducer(tasksReducer,{
-        [todolistID1]: [
-            {id: v1(), isDone: true, title: 'HTML/CSS'},
-            {id: v1(), isDone: false, title: 'React'},
-            {id: v1(), isDone: true, title: 'JS'},
-            {id: v1(), isDone: true, title: 'tasks from Ignat'},
-            {id: v1(), isDone: true, title: 'Social Network'},
-            {id: v1(), isDone: false, title: 'CodeWars'},
-            {id: v1(), isDone: false, title: 'Native JS'},
-            {id: v1(), isDone: false, title: 'React/TypeScript'}
-        ],
-        [todolistID2]: [
-            {id: v1(), isDone: true, title: 'Путь самурая'},
-            {id: v1(), isDone: false, title: 'Реакт- кабзда как просто'},
-            {id: v1(), isDone: false, title: 'SocialNetwork'},
-            {id: v1(), isDone: true, title: 'Tasks from Ignat'},
-            {id: v1(), isDone: false, title: 'documentation'}
-        ],
-        [todolistID3]: [
-            {id: v1(), isDone: true, title: 'Codewars.com'},
-            {id: v1(), isDone: false, title: 'native JS'},
-            {id: v1(), isDone: false, title: 'code.mu'},
-            {id: v1(), isDone: true, title: 'lessons on Sundays'},
-            {id: v1(), isDone: false, title: 'documentation'},
-            {id: v1(), isDone: false, title: 'x3'}
-        ],
-        [todolistID4]: [
-            {id: v1(), isDone: false, title: 'task from Ignat'},
-            {id: v1(), isDone: false, title: 'code.mu'},
-            {id: v1(), isDone: true, title: 'Codewars.com'}
-        ]
-    })
+    let dispatch = useDispatch()
+    // const todolistID1 = v1()
+    // const todolistID2 = v1()
+    // const todolistID3 = v1()
+    // const todolistID4 = v1()
+    //
+    // let [todolists, dispatchToTodolist] = useReducer(todolistReducer, [
+    //     {id: todolistID1, title: 'What I want to learn', filter: 'all'},
+    //     {id: todolistID2, title: 'React', filter: 'all'},
+    //     {id: todolistID3, title: 'JS', filter: 'all'},
+    //     {id: todolistID4, title: 'Useful', filter: 'all'},
+    // ])
+    //
+    // let [tasks, dispatchToTasks] = useReducer(tasksReducer,{
+    //     [todolistID1]: [
+    //         {id: v1(), isDone: true, title: 'HTML/CSS'},
+    //         {id: v1(), isDone: false, title: 'React'},
+    //         {id: v1(), isDone: true, title: 'JS'},
+    //         {id: v1(), isDone: true, title: 'tasks from Ignat'},
+    //         {id: v1(), isDone: true, title: 'Social Network'},
+    //         {id: v1(), isDone: false, title: 'CodeWars'},
+    //         {id: v1(), isDone: false, title: 'Native JS'},
+    //         {id: v1(), isDone: false, title: 'React/TypeScript'}
+    //     ],
+    //     [todolistID2]: [
+    //         {id: v1(), isDone: true, title: 'Путь самурая'},
+    //         {id: v1(), isDone: false, title: 'Реакт- кабзда как просто'},
+    //         {id: v1(), isDone: false, title: 'SocialNetwork'},
+    //         {id: v1(), isDone: true, title: 'Tasks from Ignat'},
+    //         {id: v1(), isDone: false, title: 'documentation'}
+    //     ],
+    //     [todolistID3]: [
+    //         {id: v1(), isDone: true, title: 'Codewars.com'},
+    //         {id: v1(), isDone: false, title: 'native JS'},
+    //         {id: v1(), isDone: false, title: 'code.mu'},
+    //         {id: v1(), isDone: true, title: 'lessons on Sundays'},
+    //         {id: v1(), isDone: false, title: 'documentation'},
+    //         {id: v1(), isDone: false, title: 'x3'}
+    //     ],
+    //     [todolistID4]: [
+    //         {id: v1(), isDone: false, title: 'task from Ignat'},
+    //         {id: v1(), isDone: false, title: 'code.mu'},
+    //         {id: v1(), isDone: true, title: 'Codewars.com'}
+    //     ]
+    // })
 
 //-----------todolists---------
 
     const addNewTodolist = (inputValue: string) => {
         let action = addTodolistAC(inputValue)
-        dispatchToTodolist(action)
-        dispatchToTasks(action)
+        dispatch(action)
     }
 
     const changeTodolistTitle = (title: string, todolistId: string) => {
-        dispatchToTodolist(changeTodolistTitleAC(title, todolistId))
+        dispatch(changeTodolistTitleAC(title, todolistId))
     }
 
     const removeTodolist = (todolistId: string) => {
         let action = removeTodolistAC(todolistId)
-        dispatchToTodolist(action)
+        dispatch(action)
     }
 
 //------------tasks------------
     const removeTask = (taskId: string, todolistId: string) => {
-        dispatchToTasks(actions.removeTaskAC(todolistId,taskId))
+        dispatch(actions.removeTaskAC(todolistId,taskId))
     }
 
     const addNewTask = (inputValue: string, todolistId: string) => {
-        dispatchToTasks(actions.addNewTaskAC(todolistId, inputValue))
+        dispatch(actions.addNewTaskAC(todolistId, inputValue))
     }
     const changeTaskTitleText = (taskId: string, newTitle: string, todolistId: string) => {
-        dispatchToTasks(actions.changeTaskTitleTextAC(todolistId, taskId, newTitle))
+        dispatch(actions.changeTaskTitleTextAC(todolistId, taskId, newTitle))
     }
 //-----------checkBox------------
     const onCheckedBox = (id: string, value: boolean, todolistId: string) => {
-        dispatchToTasks(actions.changeCheckedStatusAC(todolistId, id, value))
+        dispatch(actions.changeCheckedStatusAC(todolistId, id, value))
     }
 
 //----------filterValue-------
 
     const changeFilter = (value: FilterValuesType, todolistId: string) => {
-        dispatchToTodolist(changeTodolistFilterValueAC(todolistId, value))
+        dispatch(changeTodolistFilterValueAC(todolistId, value))
     }
 
     return (
@@ -178,5 +182,5 @@ function AppWithUseReducer() {
     )
 }
 
-export default AppWithUseReducer;
+export default AppWithRedux;
 
