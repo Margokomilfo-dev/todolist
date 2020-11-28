@@ -5,7 +5,6 @@ import {
     addTodolistAC,
     REMOVE_TODOLIST,
     removeTodolistAC,
-    TodolistType
 } from "../todolistsReducer/todolistsReducer";
 
 export enum ActionsTypes {

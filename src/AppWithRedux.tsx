@@ -1,4 +1,4 @@
-import React, {useState, useReducer} from 'react'
+import React, {useCallback} from 'react'
 import './App.css'
 import {Todolist} from './components/Todolist'
 import {AddForm} from "./components/AddForm"
@@ -6,12 +6,9 @@ import {AppBar, Button, IconButton, Toolbar, Typography, Container, Grid, Paper}
 import {Menu} from "@material-ui/icons"
 import {
     addTodolistAC,
-    todolistReducer,
     changeTodolistTitleAC,
-    removeTodolistAC,
-    changeTodolistFilterValueAC
+    removeTodolistAC
 } from "./store/todolistsReducer/todolistsReducer"
-import {actions, tasksReducer} from './store/tasksReducer/tasksReducer'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store/store";
 
@@ -83,19 +80,19 @@ function AppWithRedux() {
 
 //-----------todolists---------
 
-    const addNewTodolist = (inputValue: string) => {
+    const addNewTodolist = useCallback((inputValue: string) => {
         let action = addTodolistAC(inputValue)
         dispatch(action)
-    }
+    }, [dispatch])
 
-    const changeTodolistTitle = (title: string, todolistId: string) => {
+    const changeTodolistTitle = useCallback((title: string, todolistId: string) => {
         dispatch(changeTodolistTitleAC(title, todolistId))
-    }
+    }, [dispatch])
 
-    const removeTodolist = (todolistId: string) => {
+    const removeTodolist = useCallback((todolistId: string) => {
         let action = removeTodolistAC(todolistId)
         dispatch(action)
-    }
+    }, [dispatch])
 
 //------------tasks------------
 //     const removeTask = (taskId: string, todolistId: string) => {
@@ -146,12 +143,6 @@ function AppWithRedux() {
                         {
                             todolists.map(tl => {
                                 let newArrTasks = tasks[tl.id]
-                                if (tl.filter === 'active') {
-                                    newArrTasks = tasks[tl.id].filter(t => !t.isDone)
-                                }
-                                if (tl.filter === 'completed') {
-                                    newArrTasks = tasks[tl.id].filter(t => t.isDone)
-                                }
                                 return (
                                     <Grid item>
                                         <Paper elevation={5}>

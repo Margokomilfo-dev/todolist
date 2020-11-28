@@ -7,7 +7,8 @@ type ChangedSpanIntoInputPropsType = {
     changeItemText: (value: string) => void
 }
 
-export function ChangedSpanIntoInput(props: ChangedSpanIntoInputPropsType) {
+export const ChangedSpanIntoInput = React.memo( (props: ChangedSpanIntoInputPropsType) => {
+    console.log('ChangedSpanIntoInput')
     let [editMod, setEditMod] = useState(false)
     let [value, setValue] = useState('')
     //----ON-------
@@ -36,4 +37,4 @@ export function ChangedSpanIntoInput(props: ChangedSpanIntoInputPropsType) {
             }
         </div>
     )
-}
+})
