@@ -26,13 +26,13 @@ export const AddForm = React.memo( (props: AddFormPropsType) => {
         setInputValue(e.currentTarget.value)
     }, [])
 
-    let addInputText = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
+    let addInputText = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null)
         if (inputValue.trim() && e.key === 'Enter') {
             props.addNewItem(inputValue)
             setInputValue('')
         }
-    }, [])
+    }
 
     return(
         <div className={s.taskInput}>

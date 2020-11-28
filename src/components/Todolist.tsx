@@ -26,8 +26,6 @@ type TodolistPropsType = {
 }
 
 export const Todolist = React.memo((props: TodolistPropsType) => {
-
-    // @ts-ignore
     //let todolist = useSelector<AppRootStateType, TodolistType>(state => state.todolists[props.todolistId])
     let dispatch = useDispatch()
 

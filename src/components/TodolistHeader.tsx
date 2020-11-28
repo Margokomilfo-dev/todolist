@@ -12,7 +12,7 @@ type TodolistHeaderPropsType = {
 }
 
 export const TodolistHeader = React.memo((props: TodolistHeaderPropsType) => {
-
+    console.log('TodolistHeader')
     let deleteTodolist = useCallback(() => {
         props.removeTodolist(props.todolistId)
     }, [props.removeTodolist])
