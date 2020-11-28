@@ -1,6 +1,5 @@
-import React, {ChangeEvent, useState} from "react"
+import React, {ChangeEvent, useCallback, useState} from "react"
 import {TextField} from "@material-ui/core"
-import s from "./Todolist.module.css";
 
 type ChangedSpanIntoInputPropsType = {
     title: string
@@ -12,19 +11,20 @@ export const ChangedSpanIntoInput = React.memo( (props: ChangedSpanIntoInputProp
     let [editMod, setEditMod] = useState(false)
     let [value, setValue] = useState('')
     //----ON-------
-    const editModOn = () => {
+    const editModOn = useCallback(() => {
         setEditMod(true)
         setValue(props.title)
-    }
+    }, [props.title])
     //----OFF-----
-    const editModOff = () => {
+    const editModOff = useCallback(() => {
         setEditMod(false)
         props.changeItemText(value)
-    }
+    }, [props.changeItemText])
     //-----input------
-    const onChangeInputText = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeInputText = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
-    }
+    }, [])
+
     return (
         <div>
             {editMod

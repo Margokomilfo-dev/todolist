@@ -25,7 +25,7 @@ type TodolistPropsType = {
     changeTaskTitleText?: (taskId: string, newTitle: string, todolistId: string) => void
 }
 
-export function Todolist(props: TodolistPropsType) {
+export const Todolist = React.memo((props: TodolistPropsType) => {
 
     // @ts-ignore
     //let todolist = useSelector<AppRootStateType, TodolistType>(state => state.todolists[props.todolistId])
@@ -86,5 +86,5 @@ export function Todolist(props: TodolistPropsType) {
             </div>
         </div>
     )
-}
+})
 

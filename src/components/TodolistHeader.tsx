@@ -1,9 +1,7 @@
 import s from "./Todolist.module.css"
 import {ChangedSpanIntoInput} from "./ChangedSpanIntoInput"
-import React from "react"
-import AddCircleOutlineTwoToneIcon from "@material-ui/icons/AddCircleOutlineTwoTone";
+import React, {useCallback} from "react"
 import IconButton from "@material-ui/core/IconButton"
-import HighlightOffTwoToneIcon from '@material-ui/icons/HighlightOffTwoTone';
 import DeleteIcon from "@material-ui/icons/Delete";
 
 type TodolistHeaderPropsType = {
@@ -13,15 +11,15 @@ type TodolistHeaderPropsType = {
     changeTodolistTitle: (newTitle: string, todolistId: string) => void
 }
 
-export function TodolistHeader(props: TodolistHeaderPropsType) {
-    //--------delete todolist---------
-    let deleteTodolist = () => {
+export const TodolistHeader = React.memo((props: TodolistHeaderPropsType) => {
+
+    let deleteTodolist = useCallback(() => {
         props.removeTodolist(props.todolistId)
-    }
-    //--------change title of todolist ---------
-    let onChangeTitleText = (newTitle: string, todolistId: string) => {
+    }, [props.removeTodolist])
+
+    let onChangeTitleText = useCallback((newTitle: string, todolistId: string) => {
         props.changeTodolistTitle(newTitle, todolistId)
-    }
+    }, [ props.changeTodolistTitle])
     return (
         <div className={s.todolistHeader}>
             <div className={s.todolistTitle}>
@@ -37,4 +35,4 @@ export function TodolistHeader(props: TodolistHeaderPropsType) {
             </div>
         </div>
     )
-}
+})

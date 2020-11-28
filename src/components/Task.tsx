@@ -4,23 +4,24 @@ import s from "./Todolist.module.css";
 import {ChangedSpanIntoInput} from "./ChangedSpanIntoInput";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import React from "react";
+import React, {useCallback} from "react";
 import {TaskType} from "../App";
 
 type TaskPropsType = {
     task: TaskType
     todolistId: string
 }
-export const Task = (props: TaskPropsType) => {
+export const Task = React.memo((props: TaskPropsType) => {
     let dispatch = useDispatch()
-    let onClickCheckBox = (e: boolean, id: string) => {
+    let onClickCheckBox = useCallback((e: boolean, id: string) => {
         //props.onCheckedBox(id, e, props.todolistId)
         dispatch(actions.changeCheckedStatusAC(props.todolistId, id, e))
-    }
-    const onChangeTaskTitleText = (taskId: string, newTitle: string, todolistId: string) => {
+    }, [dispatch,props.todolistId])
+
+    const onChangeTaskTitleText = useCallback((taskId: string, newTitle: string, todolistId: string) => {
         //props.changeTaskTitleText(taskId, newTitle, todolist.id)
         dispatch(actions.changeTaskTitleTextAC(props.todolistId, taskId, newTitle))
-    }
+    }, [dispatch, props.todolistId])
     return (
         <div key={props.task.id} className={`${s.task} + ${props.task.isDone ? s.taskCheckbox : ''}`}>
             <div>
@@ -45,4 +46,4 @@ export const Task = (props: TaskPropsType) => {
             </div>
         </div>
     )
-}
+})
