@@ -7,29 +7,29 @@ import AddCircleOutlineTwoToneIcon from "@material-ui/icons/AddCircleOutlineTwoT
 type AddFormPropsType = {
     addNewItem: (inputValue: string) => void
 }
-export const AddForm = React.memo( (props: AddFormPropsType) => {
+export const AddForm: React.FC<AddFormPropsType> = React.memo( ({addNewItem}) => {
     let [inputValue, setInputValue] = useState<string>('')
     let [error, setError] = useState<string | null>('')
 
     let addTask = useCallback((inputValue: string) => {
         if (inputValue.trim()) {
-            props.addNewItem(inputValue)
+            addNewItem(inputValue)
             setInputValue('')
         } else {
             setError('field is required')
         }
-    }, [props.addNewItem])
+    }, [addNewItem])
 
 
-    let onInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    let onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         inputValue.trim() && setError(null)
         setInputValue(e.currentTarget.value)
-    }, [])
+    }
 
     let addInputText = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null)
         if (inputValue.trim() && e.key === 'Enter') {
-            props.addNewItem(inputValue)
+            addNewItem(inputValue)
             setInputValue('')
         }
     }

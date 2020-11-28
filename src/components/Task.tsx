@@ -11,27 +11,27 @@ type TaskPropsType = {
     task: TaskType
     todolistId: string
 }
-export const Task = React.memo((props: TaskPropsType) => {
+export const Task:React.FC<TaskPropsType> = React.memo(({task, todolistId}) => {
     let dispatch = useDispatch()
     let onClickCheckBox = useCallback((e: boolean, id: string) => {
         //props.onCheckedBox(id, e, props.todolistId)
-        dispatch(actions.changeCheckedStatusAC(props.todolistId, id, e))
-    }, [dispatch,props.todolistId])
+        dispatch(actions.changeCheckedStatusAC(todolistId, id, e))
+    }, [dispatch,todolistId])
 
     const onChangeTaskTitleText = useCallback((taskId: string, newTitle: string, todolistId: string) => {
         //props.changeTaskTitleText(taskId, newTitle, todolist.id)
-        dispatch(actions.changeTaskTitleTextAC(props.todolistId, taskId, newTitle))
-    }, [dispatch, props.todolistId])
+        dispatch(actions.changeTaskTitleTextAC(todolistId, taskId, newTitle))
+    }, [dispatch, todolistId])
     return (
-        <div key={props.task.id} className={`${s.task} + ${props.task.isDone ? s.taskCheckbox : ''}`}>
+        <div key={task.id} className={`${s.task} + ${task.isDone ? s.taskCheckbox : ''}`}>
             <div>
-                <input type="checkbox" checked={props.task.isDone} onClick={(e) => {
-                    onClickCheckBox(e.currentTarget.checked, props.task.id)
+                <input type="checkbox" checked={task.isDone} onClick={(e) => {
+                    onClickCheckBox(e.currentTarget.checked, task.id)
                 }}/>
             </div>
             <div className={s.taskTitle}>
-                <ChangedSpanIntoInput title={props.task.title} changeItemText={(newTitle) => {
-                    onChangeTaskTitleText(props.task.id, newTitle, props.todolistId)
+                <ChangedSpanIntoInput title={task.title} changeItemText={(newTitle) => {
+                    onChangeTaskTitleText(task.id, newTitle, todolistId)
                 }}/>
             </div>
             <div className={s.taskBtn}>
@@ -39,7 +39,7 @@ export const Task = React.memo((props: TaskPropsType) => {
 
                 {/*<IconButton aria-label="delete" onClick={() => {props.removeTask(t.id, props.todolistId) }}>*/}
                 <IconButton aria-label="delete" onClick={() => {
-                    dispatch(actions.removeTaskAC(props.todolistId, props.task.id))
+                    dispatch(actions.removeTaskAC(todolistId, task.id))
                 }}>
                     <DeleteIcon/>
                 </IconButton>
