@@ -12,14 +12,13 @@ type TodolistHeaderPropsType = {
 }
 
 export const TodolistHeader: React.FC<TodolistHeaderPropsType> = React.memo(({removeTodolist, changeTodolistTitle, title, todolistId}) => {
-    console.log('TodolistHeader')
     let deleteTodolist = useCallback(() => {
         removeTodolist(todolistId)
-    }, [removeTodolist])
+    }, [removeTodolist, todolistId])
 
     let onChangeTitleText = useCallback((newTitle: string, todolistId: string) => {
         changeTodolistTitle(newTitle, todolistId)
-    }, [ changeTodolistTitle])
+    }, [changeTodolistTitle])
     return (
         <div className={s.todolistHeader}>
             <div className={s.todolistTitle}>

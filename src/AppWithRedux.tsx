@@ -140,7 +140,6 @@ function AppWithRedux() {
                     </div>
                 </Grid>
             </Container>
-
         </div>
     )
 }

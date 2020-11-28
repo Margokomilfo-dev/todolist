@@ -7,7 +7,7 @@ import AddCircleOutlineTwoToneIcon from "@material-ui/icons/AddCircleOutlineTwoT
 type AddFormPropsType = {
     addNewItem: (inputValue: string) => void
 }
-export const AddForm: React.FC<AddFormPropsType> = React.memo( ({addNewItem}) => {
+export const AddForm: React.FC<AddFormPropsType> = React.memo(({addNewItem}) => {
     let [inputValue, setInputValue] = useState<string>('')
     let [error, setError] = useState<string | null>('')
 
@@ -34,7 +34,7 @@ export const AddForm: React.FC<AddFormPropsType> = React.memo( ({addNewItem}) =>
         }
     }
 
-    return(
+    return (
         <div className={s.taskInput}>
             <TextField id="outlined-error-helper-text"
                        label={error ? "error" : "new task"}
@@ -43,13 +43,12 @@ export const AddForm: React.FC<AddFormPropsType> = React.memo( ({addNewItem}) =>
                        value={inputValue}
                        onChange={onInputChange}
                        onKeyPress={addInputText}
-                //className={error ? s.arrayInputAddTasks : ''}//
                        error={Boolean(error)}
 
             />
-            <IconButton  onClick={() => addTask(inputValue)}>
+            <IconButton onClick={() => addTask(inputValue)}>
                 <AddCircleOutlineTwoToneIcon color={"primary"} style={{padding: '0px'}}/>
-            </IconButton >
+            </IconButton>
             {error ? <div className={s.error}> {error} </div> : null}
         </div>
     )

@@ -9,7 +9,14 @@ import {actions} from "../store/tasksReducer/tasksReducer"
 import {changeTodolistFilterValueAC} from "../store/todolistsReducer/todolistsReducer"
 import {Task} from "./Task"
 
+
 type TodolistPropsType = {
+    removeTask?: any
+    changeFilter?: any
+    addNewTask?: any
+    onCheckedBox?: any
+    changeTaskTitleText?: any
+
     todolistId: string
     title: string
     newArrTasks: Array<TaskType>
@@ -50,7 +57,7 @@ export const Todolist: React.FC<TodolistPropsType> = React.memo(({todolistId, ch
             <div>
                 <TodolistHeader title={title} todolistId={todolistId} removeTodolist={removeTodolist}
                                 changeTodolistTitle={changeTodolistTitle}/>
-                <AddForm  addNewItem={addNewTask}/>
+                <AddForm addNewItem={addNewTask}/>
 
                 <div className={s.tasks}>
                     {allTasks.map(t => <Task key={t.id} task={t} todolistId={todolistId}/>)}
@@ -63,7 +70,7 @@ export const Todolist: React.FC<TodolistPropsType> = React.memo(({todolistId, ch
                         size={'small'}
                         style={{margin: '2px', width: '78px', fontSize: '11px'}}> All</Button>
                 <Button onClick={onFilterActive}
-                        variant ={filter === 'active' ? 'outlined' : 'contained'}
+                        variant={filter === 'active' ? 'outlined' : 'contained'}
                         size={'small'}
                         style={{margin: '2px', width: '78px', fontSize: '11px'}}>Active</Button>
                 <Button onClick={onFilterCompleted}

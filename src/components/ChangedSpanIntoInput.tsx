@@ -6,7 +6,7 @@ type ChangedSpanIntoInputPropsType = {
     changeItemText: (value: string) => void
 }
 
-export const ChangedSpanIntoInput: React.FC<ChangedSpanIntoInputPropsType> = React.memo( ({title, changeItemText}) => {
+export const ChangedSpanIntoInput: React.FC<ChangedSpanIntoInputPropsType> = React.memo(({title, changeItemText}) => {
     let [editMod, setEditMod] = useState(false)
     let [value, setValue] = useState('')
     //----ON-------
@@ -18,7 +18,7 @@ export const ChangedSpanIntoInput: React.FC<ChangedSpanIntoInputPropsType> = Rea
     const editModOff = useCallback(() => {
         setEditMod(false)
         changeItemText(value)
-    }, [changeItemText])
+    }, [changeItemText,value])
     //-----input------
     const onChangeInputText = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
@@ -28,10 +28,10 @@ export const ChangedSpanIntoInput: React.FC<ChangedSpanIntoInputPropsType> = Rea
         <div>
             {editMod
                 ? <TextField id="standard-size-small"
-                               size="small"
-                               onBlur={editModOff}
-                               value={value}
-                               onChange={onChangeInputText} autoFocus/>
+                             size="small"
+                             onBlur={editModOff}
+                             value={value}
+                             onChange={onChangeInputText} autoFocus/>
                 : <div onDoubleClick={editModOn}>{title}</div>
             }
         </div>

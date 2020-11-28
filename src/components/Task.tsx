@@ -11,17 +11,15 @@ type TaskPropsType = {
     task: TaskType
     todolistId: string
 }
-export const Task:React.FC<TaskPropsType> = React.memo(({task, todolistId}) => {
+export const Task: React.FC<TaskPropsType> = React.memo(({task, todolistId}) => {
     let dispatch = useDispatch()
     let onClickCheckBox = useCallback((e: boolean, id: string) => {
-        //props.onCheckedBox(id, e, props.todolistId)
         dispatch(actions.changeCheckedStatusAC(todolistId, id, e))
-    }, [dispatch,todolistId])
+    }, [dispatch, todolistId])
 
     const onChangeTaskTitleText = useCallback((taskId: string, newTitle: string, todolistId: string) => {
-        //props.changeTaskTitleText(taskId, newTitle, todolist.id)
         dispatch(actions.changeTaskTitleTextAC(todolistId, taskId, newTitle))
-    }, [dispatch, todolistId])
+    }, [dispatch])
     return (
         <div key={task.id} className={`${s.task} + ${task.isDone ? s.taskCheckbox : ''}`}>
             <div>
@@ -35,9 +33,6 @@ export const Task:React.FC<TaskPropsType> = React.memo(({task, todolistId}) => {
                 }}/>
             </div>
             <div className={s.taskBtn}>
-                {/*<button onClick={() => { props.removeTask(t.id, props.todolistId)}}>X</button>*/}
-
-                {/*<IconButton aria-label="delete" onClick={() => {props.removeTask(t.id, props.todolistId) }}>*/}
                 <IconButton aria-label="delete" onClick={() => {
                     dispatch(actions.removeTaskAC(todolistId, task.id))
                 }}>

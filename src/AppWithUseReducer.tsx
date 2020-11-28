@@ -1,4 +1,4 @@
-import React, {useState, useReducer} from 'react'
+import React, {useReducer} from 'react'
 import './App.css'
 import {Todolist} from './components/Todolist'
 import {v1} from "uuid"
@@ -43,7 +43,7 @@ function AppWithUseReducer() {
         {id: todolistID4, title: 'Useful', filter: 'all'},
     ])
 
-    let [tasks, dispatchToTasks] = useReducer(tasksReducer,{
+    let [tasks, dispatchToTasks] = useReducer(tasksReducer, {
         [todolistID1]: [
             {id: v1(), isDone: true, title: 'HTML/CSS'},
             {id: v1(), isDone: false, title: 'React'},
@@ -95,7 +95,7 @@ function AppWithUseReducer() {
 
 //------------tasks------------
     const removeTask = (taskId: string, todolistId: string) => {
-        dispatchToTasks(actions.removeTaskAC(todolistId,taskId))
+        dispatchToTasks(actions.removeTaskAC(todolistId, taskId))
     }
 
     const addNewTask = (inputValue: string, todolistId: string) => {
