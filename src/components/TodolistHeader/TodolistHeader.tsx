@@ -1,5 +1,5 @@
-import s from "./Todolist.module.css"
-import {ChangedSpanIntoInput} from "./ChangedSpanIntoInput"
+import s from "../Todolist/Todolist.module.css"
+import {ChangedSpanIntoInput} from "../ChangedSpanIntoInput/ChangedSpanIntoInput"
 import React, {useCallback} from "react"
 import IconButton from "@material-ui/core/IconButton"
 import DeleteIcon from "@material-ui/icons/Delete"

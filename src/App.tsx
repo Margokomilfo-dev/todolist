@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import './App.css'
-import {Todolist} from './components/Todolist'
+import {Todolist} from './components/Todolist/Todolist'
 import {v1} from "uuid";
-import {AddForm} from "./components/AddForm";
+import {AddForm} from "./components/AddForm/AddForm";
 import {AppBar, Button, IconButton, Toolbar, Typography, Container, Grid, Paper} from '@material-ui/core';
 import {Menu} from "@material-ui/icons";
 

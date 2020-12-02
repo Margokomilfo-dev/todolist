@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useCallback, useState} from "react"
 import {TextField} from "@material-ui/core"
 
-type ChangedSpanIntoInputPropsType = {
+export type ChangedSpanIntoInputPropsType = {
     title: string
     changeItemText: (value: string) => void
 }

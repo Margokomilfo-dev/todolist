@@ -1,10 +1,10 @@
 import React, {ChangeEvent, KeyboardEvent, useCallback, useState} from "react";
-import s from "./Todolist.module.css";
+import s from "../Todolist/Todolist.module.css";
 import {TextField} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import AddCircleOutlineTwoToneIcon from "@material-ui/icons/AddCircleOutlineTwoTone";
 
-type AddFormPropsType = {
+export type AddFormPropsType = {
     addNewItem: (inputValue: string) => void
 }
 export const AddForm: React.FC<AddFormPropsType> = React.memo(({addNewItem}) => {

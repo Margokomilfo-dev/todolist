@@ -1,13 +1,13 @@
 import {useDispatch} from "react-redux"
-import {actions} from "../store/tasksReducer/tasksReducer"
-import s from "./Todolist.module.css"
-import {ChangedSpanIntoInput} from "./ChangedSpanIntoInput"
+import {actions} from "../../store/tasksReducer/tasksReducer"
+import s from "../Todolist/Todolist.module.css"
+import {ChangedSpanIntoInput} from "../ChangedSpanIntoInput/ChangedSpanIntoInput"
 import IconButton from "@material-ui/core/IconButton"
 import DeleteIcon from "@material-ui/icons/Delete"
 import React, {useCallback} from "react"
-import {TaskType} from "../App"
+import {TaskType} from "../../App"
 
-type TaskPropsType = {
+export type TaskPropsType = {
     task: TaskType
     todolistId: string
 }
