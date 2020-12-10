@@ -33,51 +33,6 @@ function AppWithRedux() {
     let tasks = useSelector<AppRootStateType, TasksType>(state => state.tasks)
 
     let dispatch = useDispatch()
-    // const todolistID1 = v1()
-    // const todolistID2 = v1()
-    // const todolistID3 = v1()
-    // const todolistID4 = v1()
-    //
-    // let [todolists, dispatchToTodolist] = useReducer(todolistReducer, [
-    //     {id: todolistID1, title: 'What I want to learn', filter: 'all'},
-    //     {id: todolistID2, title: 'React', filter: 'all'},
-    //     {id: todolistID3, title: 'JS', filter: 'all'},
-    //     {id: todolistID4, title: 'Useful', filter: 'all'},
-    // ])
-    //
-    // let [tasks, dispatchToTasks] = useReducer(tasksReducer,{
-    //     [todolistID1]: [
-    //         {id: v1(), isDone: true, title: 'HTML/CSS'},
-    //         {id: v1(), isDone: false, title: 'React'},
-    //         {id: v1(), isDone: true, title: 'JS'},
-    //         {id: v1(), isDone: true, title: 'tasks from Ignat'},
-    //         {id: v1(), isDone: true, title: 'Social Network'},
-    //         {id: v1(), isDone: false, title: 'CodeWars'},
-    //         {id: v1(), isDone: false, title: 'Native JS'},
-    //         {id: v1(), isDone: false, title: 'React/TypeScript'}
-    //     ],
-    //     [todolistID2]: [
-    //         {id: v1(), isDone: true, title: 'Путь самурая'},
-    //         {id: v1(), isDone: false, title: 'Реакт- кабзда как просто'},
-    //         {id: v1(), isDone: false, title: 'SocialNetwork'},
-    //         {id: v1(), isDone: true, title: 'Tasks from Ignat'},
-    //         {id: v1(), isDone: false, title: 'documentation'}
-    //     ],
-    //     [todolistID3]: [
-    //         {id: v1(), isDone: true, title: 'Codewars.com'},
-    //         {id: v1(), isDone: false, title: 'native JS'},
-    //         {id: v1(), isDone: false, title: 'code.mu'},
-    //         {id: v1(), isDone: true, title: 'lessons on Sundays'},
-    //         {id: v1(), isDone: false, title: 'documentation'},
-    //         {id: v1(), isDone: false, title: 'x3'}
-    //     ],
-    //     [todolistID4]: [
-    //         {id: v1(), isDone: false, title: 'task from Ignat'},
-    //         {id: v1(), isDone: false, title: 'code.mu'},
-    //         {id: v1(), isDone: true, title: 'Codewars.com'}
-    //     ]
-    // })
-
 
     const addNewTodolist = useCallback((inputValue: string) => {
         let action = addTodolistAC(inputValue)
