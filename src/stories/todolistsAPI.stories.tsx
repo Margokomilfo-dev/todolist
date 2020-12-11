@@ -1,28 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import {Meta} from '@storybook/react/types-6-0'
-import axios from 'axios'
+import { todolistApi } from '../api/api';
+
 
 export default {
-    title: 'API/Todolists ',
+    title: 'API/Todolists '
 } as Meta
 
-const instance = axios.create({
-    baseURL: "https://social-network.samuraijs.com/api/1.1/",
-    withCredentials: true,
-    headers: {
-        'API-KEY': '4ecc4fdb-da6b-45f9-bb99-93bccea55cd4'
-    }
-})
+
 
 export const AuthMe = () => {
     const [state, setState] = useState<any>('')
     useEffect(() => {
-        instance.get('auth/me')
+        todolistApi.AuthMe()
             .then(res => {
-                if (res.data.resultCode === 0) {
-                    setState(res.data.data)
+                if (res.resultCode === 0) {
+                    setState(res.data)
                 } else {
-                    setState(res.data.messages[0])
+                    setState(res.messages[0])
                 }
             })
     }, [])
@@ -41,15 +36,15 @@ export const AuthMe = () => {
 }
 
 
-export const getTodolists = () => {
+export const GetTodolists = () => {
     const [state, setState] = useState<Array<any>>([])
     const [count, setCount] = useState<any>(null)
     useEffect(() => {
-        instance.get('todo-lists')
-            .then((res) => {
-                !res.data.length && setState(['notning!'])
-                res.data.length && setState(res.data)
-                setCount(res.data.length)
+       todolistApi.GetTodolists()
+            .then(res => {
+                !res.length && setState(['notning!'])
+                res.length && setState(res)
+                setCount(res.length)
             })
     }, [])
 
@@ -63,19 +58,19 @@ export const getTodolists = () => {
     )
 }
 
-export const createTodolist = () => {
+export const CreateTodolist = () => {
     const [state, setState] = useState<any>(null)
     const [title, setTitle] = useState('')
     const [error, setError] = useState<any>(null)
 
     const createTodolist = () => {
-        instance.post('todo-lists', {title: title})
+       todolistApi.CreateTodolist(title)
             .then(res => {
-                if (res.data.resultCode === 0) {
-                    setState(res.data.data.item)
+                if (res.resultCode === 0) {
+                    setState(res.data.item)
                     setTitle('')
                 } else {
-                    setError(res.data.messages)
+                    setError(res.messages)
                 }
             })
     }
@@ -93,13 +88,13 @@ export const createTodolist = () => {
     )
 }
 
-export const deleteTodolist = () => {
+export const DeleteTodolist = () => {
     const [state, setState] = useState<any>(null)
     const [todolistID, setTodolistID] = useState('')
     const [error, setError] = useState<any>(null)
 
     const deleteTodolist = () => {
-        instance.delete(`todo-lists/${todolistID}`)
+        todolistApi.DeleteTodolist(todolistID)
             .then(res => {
                 setState('DONE!')
                 setTodolistID('')
@@ -122,8 +117,7 @@ export const deleteTodolist = () => {
     )
 }
 
-
-export const changeTodolistTitle = () => {
+export const ChangeTodolistTitle = () => {
     const [state, setState] = useState<any>(null)
     const [todolistId, setTodolistId] = useState('')
     const [title, setTitle] = useState('')
@@ -134,17 +128,17 @@ export const changeTodolistTitle = () => {
 
 
     useEffect(() => {
-        instance.get('todo-lists')
-            .then((res) => {
-                !res.data.length && setAllTodolists(['notning!'])
-                res.data.length && setAllTodolists(res.data)
-                setCount(res.data.length)
+        todolistApi.GetTodolists()
+            .then(res => {
+                !res.length && setAllTodolists(['notning!'])
+                res.length && setAllTodolists(res)
+                setCount(res.length)
             })
     }, [state])
 
     const allTodolistsMap = allTodolists.map(td => <div key={td.id}> title: {td.title}, todolist ID: {td.id}</div>)
     const changeTodolistTitle = () => {
-        instance.put(`todo-lists/${todolistId}`, {title: title})
+            todolistApi.ChangeTodolistTitle(todolistId, title)
             .then(res => {
                 setState('DONE!')
                 setTodolistId('')
