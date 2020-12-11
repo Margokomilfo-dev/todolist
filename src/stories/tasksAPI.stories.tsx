@@ -26,6 +26,7 @@ export const GetTasks = () => {
     const [tasks, setTasks] = useState<Array<any>>([])
     const getTasks = () => {
         tasksApi.getTasks(todolistID).then(res => {
+            debugger
             setTasks(res.data.items)
             setTodolistID('')
         }).catch(res => {
