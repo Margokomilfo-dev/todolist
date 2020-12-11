@@ -1,5 +1,14 @@
 import axios from 'axios'
 
+const task = {
+    title: '',
+    description: 'description',
+    completed: false,
+    status: 1,
+    priority: 1,
+    startDate: '11.12.2020',
+    deadline: '12.12.2020',
+}
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.1/",
     withCredentials: true,
@@ -8,21 +17,38 @@ const instance = axios.create({
     }
 })
 
-export const todolistApi = {
-    AuthMe: () => {
+export const todolistsApi = {
+    authMe: () => {
         return instance.get('auth/me').then(res => res.data)
     },
-    GetTodolists: () => {
+    getTodolists: () => {
         return instance.get('todo-lists').then(res => res.data)
     },
-    CreateTodolist: (title: string) => {
+    createTodolist: (title: string) => {
         return instance.post('todo-lists', {title}).then(res => res.data)
     },
-    DeleteTodolist: (todolistID: string) => {
+    deleteTodolist: (todolistID: string) => {
         return instance.delete(`todo-lists/${todolistID}`)
     },
-    ChangeTodolistTitle: (todolistId: string, title: string) => {
+    changeTodolistTitle: (todolistId: string, title: string) => {
         return instance.put(`todo-lists/${todolistId}`, {title})
     }
+
+}
+
+export const tasksApi = {
+    getTasks: (todolistId: string) => {
+        return instance.get(`todo-lists/${todolistId}/tasks`)
+    },
+    createTask: (todolistId: string, title: string) => {
+        return instance.post(`todo-lists/${todolistId}/tasks`, {title})
+    },
+    updateTaskTitle: (todolistId: string, taskId: string, title: string) => {
+        return instance.put(`todo-lists/${todolistId}/tasks/${taskId}`, {...task, title: title})
+    },
+    deleteTask: (todolistId: string, taskId: string) => {
+        return instance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
+    }
+
 
 }

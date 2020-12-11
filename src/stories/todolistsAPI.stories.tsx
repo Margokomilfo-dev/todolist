@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Meta} from '@storybook/react/types-6-0'
-import { todolistApi } from '../api/api';
+import { todolistsApi } from '../api/api';
 
 
 export default {
-    title: 'API/Todolists '
+    title: 'API/Todolists'
 } as Meta
 
 
@@ -12,7 +12,7 @@ export default {
 export const AuthMe = () => {
     const [state, setState] = useState<any>('')
     useEffect(() => {
-        todolistApi.AuthMe()
+        todolistsApi.authMe()
             .then(res => {
                 if (res.resultCode === 0) {
                     setState(res.data)
@@ -40,8 +40,9 @@ export const GetTodolists = () => {
     const [state, setState] = useState<Array<any>>([])
     const [count, setCount] = useState<any>(null)
     useEffect(() => {
-       todolistApi.GetTodolists()
+       todolistsApi.getTodolists()
             .then(res => {
+                debugger
                 !res.length && setState(['notning!'])
                 res.length && setState(res)
                 setCount(res.length)
@@ -64,7 +65,7 @@ export const CreateTodolist = () => {
     const [error, setError] = useState<any>(null)
 
     const createTodolist = () => {
-       todolistApi.CreateTodolist(title)
+       todolistsApi.createTodolist(title)
             .then(res => {
                 if (res.resultCode === 0) {
                     setState(res.data.item)
@@ -94,7 +95,7 @@ export const DeleteTodolist = () => {
     const [error, setError] = useState<any>(null)
 
     const deleteTodolist = () => {
-        todolistApi.DeleteTodolist(todolistID)
+        todolistsApi.deleteTodolist(todolistID)
             .then(res => {
                 setState('DONE!')
                 setTodolistID('')
@@ -128,7 +129,7 @@ export const ChangeTodolistTitle = () => {
 
 
     useEffect(() => {
-        todolistApi.GetTodolists()
+        todolistsApi.getTodolists()
             .then(res => {
                 !res.length && setAllTodolists(['notning!'])
                 res.length && setAllTodolists(res)
@@ -136,9 +137,9 @@ export const ChangeTodolistTitle = () => {
             })
     }, [state])
 
-    const allTodolistsMap = allTodolists.map(td => <div key={td.id}> title: {td.title}, todolist ID: {td.id}</div>)
+    const allTodolistsMap = allTodolists.map(td => <div key={td.id}> , ID: {td.id}, title: {td.title}</div>)
     const changeTodolistTitle = () => {
-            todolistApi.ChangeTodolistTitle(todolistId, title)
+            todolistsApi.changeTodolistTitle(todolistId, title)
             .then(res => {
                 setState('DONE!')
                 setTodolistId('')
@@ -149,7 +150,6 @@ export const ChangeTodolistTitle = () => {
             })
     }
 
-    console.log(error)
     return (
         <div>
             <div><input type="text" value={todolistId} onChange={e => setTodolistId(e.currentTarget.value)}
