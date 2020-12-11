@@ -69,7 +69,7 @@ export const createTodolist = () => {
     const [error, setError] = useState<any>(null)
 
     const createTodolist = () => {
-        instance.post('/todo-lists', {title: title})
+        instance.post('todo-lists', {title: title})
             .then(res => {
                 if (res.data.resultCode === 0) {
                     setState(res.data.data.item)
@@ -87,6 +87,39 @@ export const createTodolist = () => {
                 <button onClick={createTodolist}> create new Todolist</button>
             </div>
             {!error && state && <div>New todolist: <br/> title: {state.title}, todolist ID: {state.id}</div>}
+            {error && <div>{error}</div>}
+            {/*{JSON.stringify(state)}*/}
+        </div>
+    )
+}
+
+export const deleteTodolist = () => {
+    const [state, setState] = useState<any>(null)
+    const [todolistID, setTodolistID] = useState('')
+    const [error, setError] = useState<any>(null)
+
+    const createTodolist = () => {
+        instance.delete(`todo-lists/${todolistID}`)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    setState('DONE!')
+                    setTodolistID('')
+                } else {
+
+                }
+            })
+            .catch(res => {
+                    setError(res.message)
+                })
+    }
+    return (
+        <div>
+            <div><input type="text" value={todolistID} onChange={e => setTodolistID(e.currentTarget.value)}
+                        placeholder={`please, input todolistID`}/></div>
+            <div>
+                <button onClick={createTodolist}> delete Todolist</button>
+            </div>
+            <div>{state}</div>
             {error && <div>{error}</div>}
             {/*{JSON.stringify(state)}*/}
         </div>
