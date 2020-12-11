@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Meta } from '@storybook/react/types-6-0'
+import {Meta} from '@storybook/react/types-6-0'
 import axios from 'axios'
 
 export default {
@@ -7,7 +7,7 @@ export default {
 } as Meta
 
 const instance = axios.create({
-    baseURL:"https://social-network.samuraijs.com/api/1.1/",
+    baseURL: "https://social-network.samuraijs.com/api/1.1/",
     withCredentials: true,
     headers: {
         'API-KEY': '4ecc4fdb-da6b-45f9-bb99-93bccea55cd4'
@@ -19,7 +19,7 @@ export const AuthMe = () => {
     useEffect(() => {
         instance.get('auth/me')
             .then(res => {
-                if(res.data.resultCode === 0){
+                if (res.data.resultCode === 0) {
                     setState(res.data.data)
                 } else {
                     setState(res.data.messages[0])
@@ -28,7 +28,7 @@ export const AuthMe = () => {
     }, [])
     console.log(state)
 
-    return(
+    return (
         <div>
             <div>id: {state.id}</div>
             <div>login: {state.login}</div>
@@ -53,14 +53,42 @@ export const getTodolists = () => {
             })
     }, [])
 
-    console.log(state)
-
-    const newState = state.map(td => <div key={td.id}> {td.index} title: {td.title}, todolist ID: {td.id}</div>)
+    const newState = state.map(td => <div key={td.id}> title: {td.title}, todolist ID: {td.id}</div>)
     return (
         <div>
             {/*{JSON.stringify(state)}*/}
             <div>{newState}</div>
             <div>Count of todolists: {count}</div>
+        </div>
+    )
+}
+
+export const createTodolist = () => {
+    const [state, setState] = useState<any>(null)
+    const [title, setTitle] = useState('')
+    const [error, setError] = useState<any>(null)
+
+    const createTodolist = () => {
+        instance.post('/todo-lists', {title: title})
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    setState(res.data.data.item)
+                    setTitle('')
+                } else {
+                    setError(res.data.messages)
+                }
+            })
+    }
+    return (
+        <div>
+            <div><input type="text" value={title} onChange={e => setTitle(e.currentTarget.value)}
+                        placeholder={`please, input todolist's title`}/></div>
+            <div>
+                <button onClick={createTodolist}> create new Todolist</button>
+            </div>
+            {!error && state && <div>New todolist: <br/> title: {state.title}, todolist ID: {state.id}</div>}
+            {error && <div>{error}</div>}
+            {/*{JSON.stringify(state)}*/}
         </div>
     )
 }
