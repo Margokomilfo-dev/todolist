@@ -98,26 +98,22 @@ export const deleteTodolist = () => {
     const [todolistID, setTodolistID] = useState('')
     const [error, setError] = useState<any>(null)
 
-    const createTodolist = () => {
+    const deleteTodolist = () => {
         instance.delete(`todo-lists/${todolistID}`)
             .then(res => {
-                if (res.data.resultCode === 0) {
-                    setState('DONE!')
-                    setTodolistID('')
-                } else {
-
-                }
+                setState('DONE!')
+                setTodolistID('')
             })
             .catch(res => {
-                    setError(res.message)
-                })
+                setError(res.message)
+            })
     }
     return (
         <div>
             <div><input type="text" value={todolistID} onChange={e => setTodolistID(e.currentTarget.value)}
                         placeholder={`please, input todolistID`}/></div>
             <div>
-                <button onClick={createTodolist}> delete Todolist</button>
+                <button onClick={deleteTodolist}> delete Todolist</button>
             </div>
             <div>{state}</div>
             {error && <div>{error}</div>}
@@ -125,3 +121,60 @@ export const deleteTodolist = () => {
         </div>
     )
 }
+
+
+export const changeTodolistTitle = () => {
+    const [state, setState] = useState<any>(null)
+    const [todolistId, setTodolistId] = useState('')
+    const [title, setTitle] = useState('')
+    const [error, setError] = useState<any>(null)
+
+    const [allTodolists, setAllTodolists] = useState<Array<any>>([])
+    const [count, setCount] = useState<any>(null)
+
+
+    useEffect(() => {
+        instance.get('todo-lists')
+            .then((res) => {
+                !res.data.length && setAllTodolists(['notning!'])
+                res.data.length && setAllTodolists(res.data)
+                setCount(res.data.length)
+            })
+    }, [state])
+
+    const allTodolistsMap = allTodolists.map(td => <div key={td.id}> title: {td.title}, todolist ID: {td.id}</div>)
+    const changeTodolistTitle = () => {
+        instance.put(`todo-lists/${todolistId}`, {title: title})
+            .then(res => {
+                setState('DONE!')
+                setTodolistId('')
+                setTitle('')
+            })
+            .catch(res => {
+                setError(res.message)
+            })
+    }
+
+    console.log(error)
+    return (
+        <div>
+            <div><input type="text" value={todolistId} onChange={e => setTodolistId(e.currentTarget.value)}
+                        placeholder={`please, input todolistID`}/></div>
+            <div><input type="text" value={title} onChange={e => setTitle(e.currentTarget.value)}
+                        placeholder={`please, input newTitle`}/></div>
+            <div>
+                <button onClick={changeTodolistTitle}> change title of Todolist</button>
+            </div>
+
+            <div>{state}</div>
+            {error && <div>Nothing changed!!!! <br/> Error: {error}</div>}
+
+            <br/>
+            <div>Todolists: <br/>{allTodolistsMap}</div>
+            <div>Count of todolists: {count}</div>
+
+            {/*{JSON.stringify(state)}*/}
+        </div>
+    )
+}
+
