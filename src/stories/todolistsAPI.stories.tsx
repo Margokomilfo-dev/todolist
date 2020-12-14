@@ -1,14 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Meta} from '@storybook/react/types-6-0'
-import { todolistsApi } from '../api/api';
-import {debounce} from "@material-ui/core";
-
+import {todolistsApi} from '../api/api';
 
 export default {
     title: 'API/Todolists'
 } as Meta
-
-
 
 export const AuthMe = () => {
     const [state, setState] = useState<any>('')
@@ -36,12 +32,11 @@ export const AuthMe = () => {
     )
 }
 
-
 export const GetTodolists = () => {
     const [state, setState] = useState<Array<any>>([])
     const [count, setCount] = useState<any>(null)
     useEffect(() => {
-       todolistsApi.getTodolists()
+        todolistsApi.getTodolists()
             .then(res => {
                 !res.length && setState(['notning!'])
                 res.length && setState(res)
@@ -65,7 +60,7 @@ export const CreateTodolist = () => {
     const [error, setError] = useState<any>(null)
 
     const createTodolist = () => {
-       todolistsApi.createTodolist(title)
+        todolistsApi.createTodolist(title)
             .then(res => {
                 if (res.resultCode === 0) {
                     setState(res.data.item)
@@ -139,7 +134,7 @@ export const ChangeTodolistTitle = () => {
 
     const allTodolistsMap = allTodolists.map(td => <div key={td.id}> , ID: {td.id}, title: {td.title}</div>)
     const changeTodolistTitle = () => {
-            todolistsApi.changeTodolistTitle(todolistId, title)
+        todolistsApi.changeTodolistTitle(todolistId, title)
             .then(res => {
                 setState('DONE!')
                 setTodolistId('')

@@ -20,9 +20,9 @@ export const ChangedSpanIntoInput: React.FC<ChangedSpanIntoInputPropsType> = Rea
         changeItemText(value)
     }, [changeItemText,value])
     //-----input------
-    const onChangeInputText = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeInputText =(e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
-    }, [])
+    }
 
     return (
         <div>

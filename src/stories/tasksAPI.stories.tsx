@@ -6,7 +6,6 @@ export default {
     title: 'API/Tasks'
 } as Meta
 
-
 export const GetTasks = () => {
     //All todolists
     const [allTodolists, setAllTodolists] = useState<Array<any>>([])
@@ -50,7 +49,6 @@ export const GetTasks = () => {
         </div>
     )
 }
-
 
 export const CreateTask = () => {
 //All Todolists
@@ -122,10 +120,7 @@ export const UpdateTaskTitle = () => {
         })
     }
     const todolistTasks = tasks.map(t => <div>id: {t.id}, title: {t.title}</div>)
-
-
 //-----------------------------------
-
     const [title, setTitle] = useState<string>('')
     const [taskID, setTaskID] = useState('')
     const [status, setStatus] = useState('')
@@ -136,8 +131,6 @@ export const UpdateTaskTitle = () => {
             setStatus('DONE!')
         })
     }
-
-
     return (
         <div>
             All todolists: <br/>
@@ -163,7 +156,6 @@ export const UpdateTaskTitle = () => {
             <div>{status}</div>
             <br/>
             <br/>
-
         </div>
     )
 }
@@ -193,8 +185,6 @@ export const DeleteTask = () => {
         })
     }
     const todolistTasks = tasks.map(t => <div>id: {t.id}, title: {t.title}</div>)
-
-
 //-----------------------------------
 
     const [taskID, setTaskID] = useState('')

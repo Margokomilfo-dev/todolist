@@ -7,18 +7,22 @@ const CHANGE_TODOLIST_FILTER_VALUE = 'CHANGE_TODOLIST_FILTER_VALUE'
 export type FilterValuesType = "all" | "active" | "completed"
 
 export type TodolistType = {
-    id: string
-    title: string
     filter: FilterValuesType
 }
 
+export type TodolistsDomainType = TodolistType & {
+    id: string
+    addedDate: string
+    order: number
+    title: string
+}
 
-const initialState: Array<TodolistType> = []
+const initialState: Array<TodolistsDomainType> = []
 
-export const todolistReducer = (state: Array<TodolistType> = initialState, action: ActionsType): Array<TodolistType> => {
+export const todolistReducer = (state: Array<TodolistsDomainType> = initialState, action: ActionsType): Array<TodolistsDomainType> => {
     switch (action.type) {
         case ADD_TODOLIST:
-            let newTodolist: TodolistType = {id: action.todolistId, title: action.title, filter: 'all'}
+            let newTodolist: TodolistsDomainType = {id: action.todolistId, title: action.title, filter: 'all', addedDate: '', order: 1}
             return [...state, newTodolist]
         case REMOVE_TODOLIST:
             let newArrTodolist = state.filter(t => t.id !== action.id)

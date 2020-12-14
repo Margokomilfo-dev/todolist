@@ -1,4 +1,3 @@
-import {TasksType, TaskType} from "../../AppWithRedux";
 import {v1} from "uuid";
 import {
     ADD_TODOLIST,
@@ -17,6 +16,27 @@ export enum ActionsTypes {
 type ActionsType = ReturnType<ActionType<typeof actions>>
     | ReturnType<typeof addTodolistAC>
     | ReturnType<typeof removeTodolistAC>
+
+export type TaskType = {
+    description: string
+    title: string
+    completed: boolean
+    status: number
+    priority: number
+    startDate: string
+    deadline: string
+    id: string
+    todoListId: string
+    order: number
+    addedDate: string
+}
+export type TasksType = {
+    [key: string]: Array<TaskType>
+}
+
+export enum statuses {
+
+}
 
 const initialState: TasksType = {}
 

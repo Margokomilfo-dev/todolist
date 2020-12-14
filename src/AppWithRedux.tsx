@@ -23,9 +23,7 @@ export type TodolistType = {
     title: string
     filter: FilterValuesType
 }
-export type TasksType = {
-    [key: string]: Array<TaskType>
-}
+
 
 function AppWithRedux() {
 
@@ -40,7 +38,7 @@ function AppWithRedux() {
     }, [dispatch])
 
     const changeTodolistTitle = useCallback((title: string, todolistId: string) => {
-        dispatch(changeTodolistTitleAC(title, todolistId))
+        dispatch(changeTodolistTitleAC(todolistId, title))
     }, [dispatch])
 
     const removeTodolist = useCallback((todolistId: string) => {
