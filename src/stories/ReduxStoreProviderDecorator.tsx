@@ -5,6 +5,7 @@ import {v1} from 'uuid'
 import { tasksReducer } from '../store/tasksReducer/tasksReducer'
 import {todolistReducer} from "../store/todolistsReducer/todolistsReducer";
 import { AppRootStateType } from '../store/store'
+import {TaskPriorities, TaskStatuses} from "../api/api";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
@@ -13,26 +14,26 @@ const rootReducer = combineReducers({
 
 const initialGlobalState = {
     todolists: [
-        {id: "todolistId1", title: 'What I want to learn', filter: 'all'},
-        {id: "todolistId2", title: 'React', filter: 'all'},
+        {id: "todolistId1", title: 'What I want to learn', filter: 'all',addedDate: '', order: 1},
+        {id: "todolistId2", title: 'React', filter: 'all' , addedDate: '', order: 2},
     ] ,
     tasks: {
         ["todolistId1"]: [
-            {id: v1(), isDone: true, title: 'HTML/CSS'},
-            {id: v1(), isDone: false, title: 'React'},
-            {id: v1(), isDone: true, title: 'JS'},
-            {id: v1(), isDone: true, title: 'tasks from Ignat'},
-            {id: v1(), isDone: true, title: 'Social Network'},
-            {id: v1(), isDone: false, title: 'CodeWars'},
-            {id: v1(), isDone: false, title: 'Native JS'},
-            {id: v1(), isDone: false, title: 'React/TypeScript'}
+            {id: v1(), status: TaskStatuses.Completed, title: 'HTML/CSS', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID1'},
+            {id: v1(), status: TaskStatuses.New, title: 'React', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID1'},
+            {id: v1(), status: TaskStatuses.Completed, title: 'JS', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID1'},
+            {id: v1(), status: TaskStatuses.Completed, title: 'tasks from Ignat', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID1'},
+            {id: v1(), status: TaskStatuses.Completed, title: 'Social Network', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID1'},
+            {id: v1(), status: TaskStatuses.New, title: 'CodeWars', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID1'},
+            {id: v1(), status: TaskStatuses.New, title: 'Native JS', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID1'},
+            {id: v1(), status: TaskStatuses.New, title: 'React/TypeScript', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID1'}
         ],
         ["todolistId2"]: [
-            {id: v1(), isDone: true, title: 'Путь самурая'},
-            {id: v1(), isDone: false, title: 'Реакт- кабзда как просто'},
-            {id: v1(), isDone: false, title: 'SocialNetwork'},
-            {id: v1(), isDone: true, title: 'Tasks from Ignat'},
-            {id: v1(), isDone: false, title: 'documentation'}
+            {id: v1(), status: TaskStatuses.Completed, title: 'Путь самурая', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID2'},
+            {id: v1(), status: TaskStatuses.New, title: 'Реакт- кабзда как просто', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID2'},
+            {id: v1(), status: TaskStatuses.New, title: 'SocialNetwork', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID2'},
+            {id: v1(), status: TaskStatuses.Completed, title: 'Tasks from Ignat', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID2'},
+            {id: v1(), status: TaskStatuses.New, title: 'documentation', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID2'}
         ]
     }
 };

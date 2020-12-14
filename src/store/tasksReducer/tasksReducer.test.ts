@@ -1,7 +1,7 @@
 import {v1} from "uuid";
-import {actions, tasksReducer} from "./tasksReducer";
-import {TasksType} from "../../AppWithRedux";
+import {actions, tasksReducer, TasksType} from "./tasksReducer";
 import {addTodolistAC, removeTodolistAC} from "../todolistsReducer/todolistsReducer";
+import {TaskPriorities, TaskStatuses} from "../../api/api";
 
 let state: TasksType
 let state2: TasksType
@@ -13,28 +13,28 @@ beforeEach(() => {
     todolistID2 = v1()
     state = {
         [todolistID1]: [
-            {id: v1(), isDone: true, title: 'HTML/CSS'},
-            {id: v1(), isDone: false, title: 'React'},
-            {id: v1(), isDone: true, title: 'JS'},
-            {id: v1(), isDone: true, title: 'tasks from Ignat'},
+            {id: v1(), status: TaskStatuses.Completed, title: 'HTML/CSS', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: v1(), status: TaskStatuses.New, title: 'React', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: v1(), status: TaskStatuses.Completed, title: 'JS', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: v1(), status: TaskStatuses.Completed, title: 'tasks from Ignat', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
         ],
         [todolistID2]: [
-            {id: v1(), isDone: true, title: 'Task1'},
-            {id: v1(), isDone: false, title: 'Task2'},
+            {id: v1(), status: TaskStatuses.Completed, title: 'Task1', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
+            {id: v1(), status: TaskStatuses.New, title: 'Task2', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
         ]
     }
     state2 = {
         [todolistID1]: [
-            {id: '1', isDone: true, title: 'HTML/CSS'},
-            {id: '2', isDone: false, title: 'React'},
-            {id: '3', isDone: false, title: 'hello'},
-            {id: '4', isDone: true, title: 'JS'},
-            {id: '5', isDone: true, title: 'tasks from Ignat'},
+            {id: '1', status: TaskStatuses.Completed, title: 'HTML/CSS', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '2', status: TaskStatuses.New, title: 'React', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '3',status: TaskStatuses.New, title: 'hello', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '4', status: TaskStatuses.Completed, title: 'JS', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '5', status: TaskStatuses.Completed, title: 'tasks from Ignat', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
         ],
         [todolistID2]: [
-            {id: '1', isDone: true, title: 'Task1'},
-            {id: '2', isDone: false, title: 'Task2'},
-            {id: '3', isDone: false, title: 'hello'},
+            {id: '1', status: TaskStatuses.Completed, title: 'Task1', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
+            {id: '2', status: TaskStatuses.New, title: 'Task2', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
+            {id: '3',status: TaskStatuses.New, title: 'hello', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
         ]
     }
 })
@@ -49,15 +49,15 @@ test('Remove task', () => {
     const endState: TasksType = tasksReducer(state2, actions.removeTaskAC(todolistID2, '3'))
     expect(endState).toEqual({
         [todolistID1]: [
-            {id: '1', isDone: true, title: 'HTML/CSS'},
-            {id: '2', isDone: false, title: 'React'},
-            {id: '3', isDone: false, title: 'hello'},
-            {id: '4', isDone: true, title: 'JS'},
-            {id: '5', isDone: true, title: 'tasks from Ignat'},
+            {id: '1', status: TaskStatuses.Completed, title: 'HTML/CSS', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '2', status: TaskStatuses.New, title: 'React', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '3',status: TaskStatuses.New, title: 'hello', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '4', status: TaskStatuses.Completed, title: 'JS', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '5', status: TaskStatuses.Completed, title: 'tasks from Ignat', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
         ],
         [todolistID2]: [
-            {id: '1', isDone: true, title: 'Task1'},
-            {id: '2', isDone: false, title: 'Task2'},
+            {id: '1', status: TaskStatuses.Completed, title: 'Task1', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
+            {id: '2', status: TaskStatuses.New, title: 'Task2', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
         ]
     })
 })
@@ -68,43 +68,42 @@ test('Change a title of task', () => {
 
     expect(endState).toEqual({
         [todolistID1]: [
-            {id: '1', isDone: true, title: 'HTML/CSS'},
-            {id: '2', isDone: false, title: 'React'},
-            {id: '3', isDone: false, title: 'hello'},
-            {id: '4', isDone: true, title: 'JS'},
-            {id: '5', isDone: true, title: 'tasks from Ignat'},
+            {id: '1', status: TaskStatuses.Completed, title: 'HTML/CSS', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '2', status: TaskStatuses.New, title: 'React', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '3',status: TaskStatuses.New, title: 'hello', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '4', status: TaskStatuses.Completed, title: 'JS', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '5', status: TaskStatuses.Completed, title: 'tasks from Ignat', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
         ],
         [todolistID2]: [
-            {id: '1', isDone: true, title: 'newTask'},
-            {id: '2', isDone: false, title: 'Task2'},
-            {id: '3', isDone: false, title: 'hello'},
+            {id: '1', status: TaskStatuses.Completed, title: 'newTask', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
+            {id: '2', status: TaskStatuses.New, title: 'Task2', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
+            {id: '3',status: TaskStatuses.New, title: 'hello', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
         ]
     })
 })
 
 test('Change a status of task', () => {
 
-    const endState: TasksType = tasksReducer(state2, actions.changeCheckedStatusAC(todolistID2, '1', false))
+    const endState: TasksType = tasksReducer(state2, actions.changeCheckedStatusAC(todolistID2, '1', TaskStatuses.New))
 
     expect(endState).toEqual({
         [todolistID1]: [
-            {id: '1', isDone: true, title: 'HTML/CSS'},
-            {id: '2', isDone: false, title: 'React'},
-            {id: '3', isDone: false, title: 'hello'},
-            {id: '4', isDone: true, title: 'JS'},
-            {id: '5', isDone: true, title: 'tasks from Ignat'},
+            {id: '1', status: TaskStatuses.Completed, title: 'HTML/CSS', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '2', status: TaskStatuses.New, title: 'React', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '3',status: TaskStatuses.New, title: 'hello', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '4', status: TaskStatuses.Completed, title: 'JS', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
+            {id: '5', status: TaskStatuses.Completed, title: 'tasks from Ignat', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID1},
         ],
         [todolistID2]: [
-            {id: '1', isDone: false, title: 'Task1'},
-            {id: '2', isDone: false, title: 'Task2'},
-            {id: '3', isDone: false, title: 'hello'},
+            {id: '1', status: TaskStatuses.New, title: 'Task1', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
+            {id: '2', status: TaskStatuses.New, title: 'Task2', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
+            {id: '3',status: TaskStatuses.New, title: 'hello', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
         ]
     })
 })
 
 
 test('new array should be added when new todolist is added', () => {
-
 
     const action = addTodolistAC("new todolist");
 

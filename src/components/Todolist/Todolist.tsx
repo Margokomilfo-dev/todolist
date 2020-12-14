@@ -1,13 +1,13 @@
 import React, {useCallback} from "react"
-import {FilterValuesType, TaskType} from "../../App"
 import s from './Todolist.module.css'
 import {TodolistHeader} from "../TodolistHeader/TodolistHeader"
 import {Button} from "@material-ui/core"
 import {AddForm} from "../AddForm/AddForm"
 import {useDispatch} from "react-redux"
 import {actions} from "../../store/tasksReducer/tasksReducer"
-import {changeTodolistFilterValueAC} from "../../store/todolistsReducer/todolistsReducer"
+import {changeTodolistFilterValueAC, FilterValuesType} from "../../store/todolistsReducer/todolistsReducer"
 import {Task} from "../Task/Task"
+import {TaskStatuses, TaskType} from "../../api/api"
 
 
 export type TodolistPropsType = {
@@ -30,10 +30,10 @@ export const Todolist: React.FC<TodolistPropsType> = React.memo(({todolistId, ch
 
     let allTasks = newArrTasks
     if (filter === 'active') {
-        allTasks = newArrTasks.filter(t => !t.isDone)
+        allTasks = newArrTasks.filter(t => t.status === TaskStatuses.New)
     }
     if (filter === 'completed') {
-        allTasks = newArrTasks.filter(t => t.isDone)
+        allTasks = newArrTasks.filter(t => t.status === TaskStatuses.Completed)
     }
 //-----------filter------------
     let onFilterAll = useCallback(() => {

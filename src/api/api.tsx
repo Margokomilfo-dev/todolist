@@ -1,5 +1,55 @@
 import axios from 'axios'
 
+export enum TaskStatuses {
+    New = 0,
+    InProgress = 1,
+    Completed = 2,
+    Draft = 3,
+}
+export enum TaskPriorities {
+    Low = 0,
+    Middle = 1,
+    Hi = 2,
+    Urgently = 3,
+    Later = 4,
+}
+export type TaskType = {
+    description: string
+    title: string
+    status: TaskStatuses
+    priority: TaskPriorities
+    startDate: string
+    deadline: string
+    id: string
+    todoListId: string
+    order: number
+    addedDate: string
+}
+export type TodolistsType = {
+    id: string
+    addedDate: string
+    order: number
+    title: string
+}
+
+type AuthDataType = {
+    id: number
+    email: string
+    login: string
+}
+type ResponseType<T = {}> = {
+    fieldsErrors: Array<string>
+    resultCode: number
+    messages: Array<string>
+    data: T
+}
+type ResponseGetTaskType = {
+    error: string
+    items: Array<TaskType>
+    totalCount: number
+}
+
+
 const task = {
     title: '',
     description: 'description',
@@ -10,6 +60,9 @@ const task = {
     deadline: '12.12.2020',
 }
 
+
+
+
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.1/",
     withCredentials: true,
@@ -17,25 +70,6 @@ const instance = axios.create({
         'API-KEY': '4ecc4fdb-da6b-45f9-bb99-93bccea55cd4'
     }
 })
-
-type AuthDataType = {
-    id: number
-    email: string
-    login: string
-}
-
-type ResponseType<T = {}> = {
-    fieldsErrors: Array<string>
-    resultCode: number
-    messages: Array<string>
-    data: T
-}
-
-type ResponseGetTaskType = {
-    error: string
-    items: Array<TaskType>
-    totalCount: number
-}
 
 export const todolistsApi = {
     authMe: () => {

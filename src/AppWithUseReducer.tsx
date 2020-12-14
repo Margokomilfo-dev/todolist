@@ -10,70 +10,40 @@ import {
     todolistReducer,
     changeTodolistTitleAC,
     removeTodolistAC,
-    changeTodolistFilterValueAC
+    changeTodolistFilterValueAC,
+    FilterValuesType
 } from "./store/todolistsReducer/todolistsReducer"
 import {actions, tasksReducer} from './store/tasksReducer/tasksReducer'
-
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
-export type FilterValuesType = "all" | "active" | "completed"
-export type TodolistType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
-export type TasksType = {
-    [key: string]: Array<TaskType>
-}
+import {TaskPriorities, TaskStatuses} from "./api/api";
 
 function AppWithUseReducer() {
 
     const todolistID1 = v1()
     const todolistID2 = v1()
-    const todolistID3 = v1()
-    const todolistID4 = v1()
 
     let [todolists, dispatchToTodolist] = useReducer(todolistReducer, [
-        {id: todolistID1, title: 'What I want to learn', filter: 'all'},
-        {id: todolistID2, title: 'React', filter: 'all'},
-        {id: todolistID3, title: 'JS', filter: 'all'},
-        {id: todolistID4, title: 'Useful', filter: 'all'},
+        {id: todolistID1, title: 'What I want to learn', filter: 'all', addedDate: '', order: 1},
+        {id: todolistID2, title: 'React', filter: 'all', addedDate: '', order: 2},
     ])
 
     let [tasks, dispatchToTasks] = useReducer(tasksReducer, {
         [todolistID1]: [
-            {id: v1(), isDone: true, title: 'HTML/CSS'},
-            {id: v1(), isDone: false, title: 'React'},
-            {id: v1(), isDone: true, title: 'JS'},
-            {id: v1(), isDone: true, title: 'tasks from Ignat'},
-            {id: v1(), isDone: true, title: 'Social Network'},
-            {id: v1(), isDone: false, title: 'CodeWars'},
-            {id: v1(), isDone: false, title: 'Native JS'},
-            {id: v1(), isDone: false, title: 'React/TypeScript'}
+            {id: v1(), title: 'HTML/CSS', status: TaskStatuses.New, addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId:todolistID1 },
+            {id: v1(), title: 'React', status: TaskStatuses.Completed, addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId:todolistID1 },
+            {id: v1(), title: 'JS', status: TaskStatuses.Completed, addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId:todolistID1 },
+            {id: v1(), title: 'tasks from Ignat', status: TaskStatuses.New, addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId:todolistID1 },
+            {id: v1(), title: 'Social Network', status: TaskStatuses.New, addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId:todolistID1 },
+            {id: v1(), title: 'CodeWars', status: TaskStatuses.Completed, addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId:todolistID1 },
+            {id: v1(), title: 'Native JS', status: TaskStatuses.Completed, addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId:todolistID1 },
+            {id: v1(), title: 'React/TypeScript', status: TaskStatuses.New, addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId:todolistID1 }
         ],
         [todolistID2]: [
-            {id: v1(), isDone: true, title: 'Путь самурая'},
-            {id: v1(), isDone: false, title: 'Реакт- кабзда как просто'},
-            {id: v1(), isDone: false, title: 'SocialNetwork'},
-            {id: v1(), isDone: true, title: 'Tasks from Ignat'},
-            {id: v1(), isDone: false, title: 'documentation'}
+            {id: v1(),title: 'Путь самурая', status: TaskStatuses.New, addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId:todolistID2 },
+            {id: v1(), title: 'Реакт- кабзда как просто', status: TaskStatuses.Completed, addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId:todolistID2 },
+            {id: v1(), title: 'SocialNetwork', status: TaskStatuses.New, addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId:todolistID2 },
+            {id: v1(),title: 'Tasks from Ignat', status: TaskStatuses.New, addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId:todolistID2 },
+            {id: v1(), title: 'documentation', status: TaskStatuses.Completed, addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId:todolistID2 }
         ],
-        [todolistID3]: [
-            {id: v1(), isDone: true, title: 'Codewars.com'},
-            {id: v1(), isDone: false, title: 'native JS'},
-            {id: v1(), isDone: false, title: 'code.mu'},
-            {id: v1(), isDone: true, title: 'lessons on Sundays'},
-            {id: v1(), isDone: false, title: 'documentation'},
-            {id: v1(), isDone: false, title: 'x3'}
-        ],
-        [todolistID4]: [
-            {id: v1(), isDone: false, title: 'task from Ignat'},
-            {id: v1(), isDone: false, title: 'code.mu'},
-            {id: v1(), isDone: true, title: 'Codewars.com'}
-        ]
     })
 
 //-----------todolists---------
@@ -105,8 +75,8 @@ function AppWithUseReducer() {
         dispatchToTasks(actions.changeTaskTitleTextAC(todolistId, taskId, newTitle))
     }
 //-----------checkBox------------
-    const onCheckedBox = (id: string, value: boolean, todolistId: string) => {
-        dispatchToTasks(actions.changeCheckedStatusAC(todolistId, id, value))
+    const onCheckedBox = (id: string, status: TaskStatuses, todolistId: string) => {
+        dispatchToTasks(actions.changeCheckedStatusAC(todolistId, id, status))
     }
 
 //----------filterValue-------
@@ -143,10 +113,10 @@ function AppWithUseReducer() {
                             todolists.map(tl => {
                                 let newArrTasks = tasks[tl.id]
                                 if (tl.filter === 'active') {
-                                    newArrTasks = tasks[tl.id].filter(t => !t.isDone)
+                                    newArrTasks = tasks[tl.id].filter(t => t.status === TaskStatuses.New)
                                 }
                                 if (tl.filter === 'completed') {
-                                    newArrTasks = tasks[tl.id].filter(t => t.isDone)
+                                    newArrTasks = tasks[tl.id].filter(t => t.status === TaskStatuses.Completed)
                                 }
                                 return (
                                     <Grid item>

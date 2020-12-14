@@ -7,27 +7,17 @@ import {Menu} from "@material-ui/icons"
 import {
     addTodolistAC,
     changeTodolistTitleAC,
-    removeTodolistAC
+    removeTodolistAC,
+    TodolistDomainType
 } from "./store/todolistsReducer/todolistsReducer"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "./store/store"
-
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
-export type FilterValuesType = "all" | "active" | "completed"
-export type TodolistType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
+import { TasksType } from './store/tasksReducer/tasksReducer'
 
 
 function AppWithRedux() {
 
-    let todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
+    let todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     let tasks = useSelector<AppRootStateType, TasksType>(state => state.tasks)
 
     let dispatch = useDispatch()

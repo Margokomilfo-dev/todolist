@@ -1,9 +1,10 @@
 import {v1} from "uuid"
-import {TodolistType} from "../../AppWithRedux"
-import {addTodolistAC,removeTodolistAC,todolistReducer,
-    changeTodolistTitleAC,changeTodolistFilterValueAC} from "./todolistsReducer"
+import {
+    addTodolistAC, removeTodolistAC, todolistReducer,
+    changeTodolistTitleAC, changeTodolistFilterValueAC, TodolistDomainType
+} from "./todolistsReducer"
 
-let todolists: Array<TodolistType>;
+let todolists: Array<TodolistDomainType>;
 let todolistID1: string
 let todolistID2: string
 
@@ -11,8 +12,8 @@ beforeEach(() => {
     todolistID1 = v1()
     todolistID2 = v1()
     todolists = [
-        {id: todolistID1, title: 'What I want to learn', filter: 'all'},
-        {id: todolistID2, title: 'React', filter: 'all'},
+        {id: todolistID1, title: 'What I want to learn', filter: 'all', addedDate: '', order: 1},
+        {id: todolistID2, title: 'React', filter: 'all', addedDate: '', order: 2},
     ]
 });
 
