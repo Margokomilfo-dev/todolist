@@ -1,10 +1,10 @@
-import React, {useCallback} from "react"
+import React, {useCallback, useEffect} from 'react'
 import s from './Todolist.module.css'
 import {TodolistHeader} from "../TodolistHeader/TodolistHeader"
 import {Button} from "@material-ui/core"
 import {AddForm} from "../AddForm/AddForm"
 import {useDispatch} from "react-redux"
-import {actions} from "../../store/tasksReducer/tasksReducer"
+import {actions, setTasksTC} from '../../store/tasksReducer/tasksReducer'
 import {changeTodolistFilterValueAC, FilterValuesType} from "../../store/todolistsReducer/todolistsReducer"
 import {Task} from "../Task/Task"
 import {TaskStatuses, TaskType} from "../../api/api"
@@ -27,6 +27,9 @@ export type TodolistPropsType = {
 
 export const Todolist: React.FC<TodolistPropsType> = React.memo(({todolistId, changeTodolistTitle, title, filter, newArrTasks, removeTodolist}) => {
     let dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(setTasksTC(todolistId))
+    },[])
 
     let allTasks = newArrTasks
     if (filter === 'active') {

@@ -1,8 +1,8 @@
 import {v1} from "uuid"
 import {
     addTodolistAC, removeTodolistAC, todolistReducer,
-    changeTodolistTitleAC, changeTodolistFilterValueAC, TodolistDomainType
-} from "./todolistsReducer"
+    changeTodolistTitleAC, changeTodolistFilterValueAC, TodolistDomainType, setTodolistsAC
+} from './todolistsReducer'
 
 let todolists: Array<TodolistDomainType>;
 let todolistID1: string
@@ -58,4 +58,10 @@ test('Change filter of todolist',()=> {
 
     //expect result
     expect(endState[1].filter).toBe('active')
+})
+test('Todolist should be set',()=> {
+
+    const endState = todolistReducer([], setTodolistsAC(todolists))
+    //expect result
+    expect(endState.length).toBe(2)
 })

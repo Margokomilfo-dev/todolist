@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import './App.css'
 import {Todolist} from './components/Todolist/Todolist'
 import {AddForm} from "./components/AddForm/AddForm"
@@ -8,12 +8,12 @@ import {
     addTodolistAC,
     changeTodolistTitleAC,
     removeTodolistAC,
-    TodolistDomainType
-} from "./store/todolistsReducer/todolistsReducer"
+    TodolistDomainType,
+    setTodolistsTC
+} from './store/todolistsReducer/todolistsReducer'
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "./store/store"
 import { TasksType } from './store/tasksReducer/tasksReducer'
-
 
 function AppWithRedux() {
 
@@ -21,6 +21,10 @@ function AppWithRedux() {
     let tasks = useSelector<AppRootStateType, TasksType>(state => state.tasks)
 
     let dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(setTodolistsTC())
+    }, [])
 
     const addNewTodolist = useCallback((inputValue: string) => {
         let action = addTodolistAC(inputValue)
