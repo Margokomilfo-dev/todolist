@@ -35,7 +35,6 @@ test('Remove todolist',()=> {
     const todolistId = todolistID1
     //action
     const endState = todolistReducer(todolists, removeTodolistAC(todolistId))
-
     //expect result
     expect(endState.length).toBe(1)
     expect(endState[0].id).toBe(todolistID2)
