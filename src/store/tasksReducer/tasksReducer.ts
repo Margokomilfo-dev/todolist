@@ -6,9 +6,9 @@ import {
     SET_TODOLISTS,
     setTodolistsAC,
 } from '../todolistsReducer/todolistsReducer'
-import {ModelType, TaskPriorities, tasksApi, TaskStatuses, TaskType} from '../../api/api'
+import {ModelType, tasksApi, TaskStatuses, TaskType} from '../../api/api'
 import {Dispatch} from 'redux'
-import { AppRootStateType } from '../store'
+import {AppRootStateType} from '../store'
 
 export enum ActionsTypes {
     ADD_TASK = 'ADD_TASK',
@@ -105,7 +105,7 @@ export const deleteTaskTC = (todolistID: string, taskID: string) => (dispatch: D
             dispatch(actions.removeTaskAC(todolistID, taskID))
         })
 }
-
+//-------------------------------------------------------------------------------------------
 export const changeTaskTitleTC = (todolistID: string, taskID: string, title: string) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
 
@@ -123,6 +123,8 @@ export const changeTaskTitleTC = (todolistID: string, taskID: string, title: str
                 dispatch(actions.changeTaskTitleTextAC(todolistID, taskID, title))
             })
 }
+
+//-----------------------------------------------------------------------------------------------
 export const changeTaskCheckedTC = (todolistID: string, taskID: string, status: TaskStatuses) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
 
