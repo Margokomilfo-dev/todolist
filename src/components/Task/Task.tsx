@@ -1,11 +1,11 @@
-import {useDispatch} from "react-redux"
-import {actions} from "../../store/tasksReducer/tasksReducer"
-import s from "../Todolist/Todolist.module.css"
-import {ChangedSpanIntoInput} from "../ChangedSpanIntoInput/ChangedSpanIntoInput"
-import IconButton from "@material-ui/core/IconButton"
-import DeleteIcon from "@material-ui/icons/Delete"
-import React, {useCallback} from "react"
-import {TaskStatuses, TaskType} from "../../api/api";
+import {useDispatch} from 'react-redux'
+import {actions, changeTaskCheckedTC, changeTaskTitleTC, deleteTaskTC} from '../../store/tasksReducer/tasksReducer'
+import s from '../Todolist/Todolist.module.css'
+import {ChangedSpanIntoInput} from '../ChangedSpanIntoInput/ChangedSpanIntoInput'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
+import React, {useCallback} from 'react'
+import {TaskStatuses, TaskType} from '../../api/api'
 
 export type TaskPropsType = {
     task: TaskType
@@ -24,17 +24,17 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todolistId}) => 
         <div key={task.id} className={`${s.task} + ${task.status === TaskStatuses.Completed ? s.taskCheckbox : ''}`}>
             <div>
                 <input type="checkbox" checked={task.status === TaskStatuses.Completed} onClick={(e) => {
-                    onClickCheckBox(e.currentTarget.checked, task.id)
+                    dispatch((changeTaskCheckedTC(todolistId, task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New)))
                 }}/>
             </div>
             <div className={s.taskTitle}>
                 <ChangedSpanIntoInput title={task.title} changeItemText={(newTitle) => {
-                    onChangeTaskTitleText(task.id, newTitle, todolistId)
+                    dispatch(changeTaskTitleTC(todolistId, task.id, newTitle))
                 }}/>
             </div>
             <div className={s.taskBtn}>
                 <IconButton aria-label="delete" onClick={() => {
-                    dispatch(actions.removeTaskAC(todolistId, task.id))
+                    dispatch(deleteTaskTC(todolistId, task.id))
                 }}>
                     <DeleteIcon/>
                 </IconButton>

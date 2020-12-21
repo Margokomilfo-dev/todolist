@@ -22,11 +22,12 @@ test('Add new todolist',()=> {
     //data
     const newTitle = 'What to buy'
     //action
-    const endState = todolistReducer(todolists, addTodolistAC(newTitle))
+    const endState = todolistReducer(todolists, addTodolistAC({id: 'todolist1', addedDate: '', order: 0, title: newTitle}))
 
     //expect result
     expect(endState.length).toBe(3)
-    expect(endState[2].title).toBe('What to buy')
+    expect(endState[2].title).toBe('React')
+    expect(endState[0].title).toBe('What to buy')
 })
 
 test('Remove todolist',()=> {

@@ -9,7 +9,10 @@ import {
     changeTodolistTitleAC,
     removeTodolistAC,
     TodolistDomainType,
-    setTodolistsTC
+    setTodolistsTC,
+    deleteTodolistTC,
+    addNewTodolistTC,
+    changeTodolistTitleTC
 } from './store/todolistsReducer/todolistsReducer'
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "./store/store"
@@ -27,17 +30,15 @@ function AppWithRedux() {
     }, [])
 
     const addNewTodolist = useCallback((inputValue: string) => {
-        let action = addTodolistAC(inputValue)
-        dispatch(action)
+        dispatch(addNewTodolistTC(inputValue))
     }, [dispatch])
 
     const changeTodolistTitle = useCallback((title: string, todolistId: string) => {
-        dispatch(changeTodolistTitleAC(todolistId, title))
+        dispatch(changeTodolistTitleTC(todolistId, title))
     }, [dispatch])
 
     const removeTodolist = useCallback((todolistId: string) => {
-        let action = removeTodolistAC(todolistId)
-        dispatch(action)
+        dispatch(deleteTodolistTC(todolistId))
     }, [dispatch])
 
     return (

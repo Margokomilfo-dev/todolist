@@ -1,7 +1,7 @@
-import {v1} from "uuid";
-import {actions, tasksReducer, TasksType} from "./tasksReducer";
+import {v1} from 'uuid'
+import {actions, tasksReducer, TasksType} from './tasksReducer'
 import {addTodolistAC, removeTodolistAC, setTodolistsAC} from '../todolistsReducer/todolistsReducer'
-import {TaskPriorities, TaskStatuses} from "../../api/api";
+import {TaskPriorities, TaskStatuses} from '../../api/api'
 
 let state: TasksType
 let state2: TasksType
@@ -41,7 +41,9 @@ beforeEach(() => {
 
 test('Add new task', () => {
 
-    const endState: TasksType = tasksReducer(state, actions.addNewTaskAC(todolistID2, 'hello'))
+    const endState: TasksType = tasksReducer(state, actions.addNewTaskAC({todoListId: todolistID2,title: 'hello', status: TaskStatuses.New, addedDate: '' ,
+    deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', id: 'exists'}))
+
     expect(endState[todolistID2].length).toBe(3)
 })
 

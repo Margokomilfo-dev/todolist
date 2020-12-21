@@ -49,9 +49,10 @@ function AppWithUseReducer() {
 //-----------todolists---------
 
     const addNewTodolist = (inputValue: string) => {
-        let action = addTodolistAC(inputValue)
+        let action = addTodolistAC({id: 'todolist1', addedDate: '', order: 0, title: inputValue})
         dispatchToTodolist(action)
         dispatchToTasks(action)
+
     }
 
     const changeTodolistTitle = (title: string, todolistId: string) => {
@@ -69,7 +70,8 @@ function AppWithUseReducer() {
     }
 
     const addNewTask = (inputValue: string, todolistId: string) => {
-        dispatchToTasks(actions.addNewTaskAC(todolistId, inputValue))
+        dispatchToTasks(actions.addNewTaskAC({todoListId: todolistId,title: inputValue, status: TaskStatuses.New, addedDate: '' ,
+            deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', id: 'exists'}))
     }
     const changeTaskTitleText = (taskId: string, newTitle: string, todolistId: string) => {
         dispatchToTasks(actions.changeTaskTitleTextAC(todolistId, taskId, newTitle))

@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react'
 import {Meta} from '@storybook/react/types-6-0'
-import {tasksApi, todolistsApi} from "../api/api";
+import {TaskPriorities, tasksApi, TaskStatuses, todolistsApi} from '../api/api'
 
 export default {
     title: 'API/Tasks'
@@ -124,8 +124,9 @@ export const UpdateTaskTitle = () => {
     const [title, setTitle] = useState<string>('')
     const [taskID, setTaskID] = useState('')
     const [status, setStatus] = useState('')
+
     const changeTaskTitle = () => {
-        tasksApi.updateTaskTitle(todolistID, taskID, title).then(res => {
+        tasksApi.updateTask(todolistID, taskID, {deadline: '', description: '', priority: TaskPriorities.Low, startDate: '', status: TaskStatuses.New, title: title}).then(res => {
             setTaskID('')
             setTitle('')
             setStatus('DONE!')

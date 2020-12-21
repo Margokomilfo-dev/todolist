@@ -4,7 +4,7 @@ import {TodolistHeader} from "../TodolistHeader/TodolistHeader"
 import {Button} from "@material-ui/core"
 import {AddForm} from "../AddForm/AddForm"
 import {useDispatch} from "react-redux"
-import {actions, setTasksTC} from '../../store/tasksReducer/tasksReducer'
+import {actions, setTasksTC, addTaskTC} from '../../store/tasksReducer/tasksReducer'
 import {changeTodolistFilterValueAC, FilterValuesType} from "../../store/todolistsReducer/todolistsReducer"
 import {Task} from "../Task/Task"
 import {TaskStatuses, TaskType} from "../../api/api"
@@ -52,7 +52,7 @@ export const Todolist: React.FC<TodolistPropsType> = React.memo(({todolistId, ch
 
     //----add tasks---
     const addNewTask = useCallback((inputValue: string) => {
-        dispatch(actions.addNewTaskAC(todolistId, inputValue))
+        dispatch(addTaskTC(todolistId, inputValue))
     }, [dispatch, todolistId])
 
     return (
