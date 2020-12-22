@@ -1,6 +1,6 @@
 import {v1} from 'uuid'
 import {actions, tasksReducer, TasksType} from './tasksReducer'
-import {addTodolistAC, removeTodolistAC, setTodolistsAC} from '../todolistsReducer/todolistsReducer'
+import {addTodolistAC, removeTodolistAC, setTodolistsAC} from './todolistsReducer'
 import {TaskPriorities, TaskStatuses} from '../../api/api'
 
 let state: TasksType

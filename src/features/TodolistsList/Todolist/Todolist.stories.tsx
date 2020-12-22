@@ -1,10 +1,10 @@
 import React from 'react';
 import {Meta, Story} from '@storybook/react/types-6-0'
 import {Todolist, TodolistPropsType} from "./Todolist";
-import {ReduxStoreProviderDecorator} from "../../stories/ReduxStoreProviderDecorator";
+import {ReduxStoreProviderDecorator} from "../../../stories/ReduxStoreProviderDecorator";
 import {action} from "@storybook/addon-actions";
 import {v1} from "uuid";
-import {TaskPriorities, TaskStatuses} from "../../api/api";
+import {TaskPriorities, TaskStatuses} from "../../../api/api";
 
 
 export default {

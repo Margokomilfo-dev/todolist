@@ -1,13 +1,13 @@
 import React, {useCallback, useEffect} from 'react'
 import s from './Todolist.module.css'
-import {TodolistHeader} from "../TodolistHeader/TodolistHeader"
+import {TodolistHeader} from "../../../components/TodolistHeader/TodolistHeader"
 import {Button} from "@material-ui/core"
-import {AddForm} from "../AddForm/AddForm"
+import {AddForm} from "../../../components/AddForm/AddForm"
 import {useDispatch} from "react-redux"
-import {actions, setTasksTC, addTaskTC} from '../../store/tasksReducer/tasksReducer'
-import {changeTodolistFilterValueAC, FilterValuesType} from "../../store/todolistsReducer/todolistsReducer"
-import {Task} from "../Task/Task"
-import {TaskStatuses, TaskType} from "../../api/api"
+import {actions, setTasksTC, addTaskTC} from '../tasksReducer'
+import {changeTodolistFilterValueAC, FilterValuesType} from "../todolistsReducer"
+import {Task} from "../../../components/Task/Task"
+import {TaskStatuses, TaskType} from "../../../api/api"
 
 
 export type TodolistPropsType = {

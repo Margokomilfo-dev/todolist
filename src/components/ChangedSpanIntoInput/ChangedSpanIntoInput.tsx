@@ -1,5 +1,5 @@
-import React, {ChangeEvent, useCallback, useState} from "react"
-import {TextField} from "@material-ui/core"
+import React, {ChangeEvent, useCallback, useState} from 'react'
+import {TextField} from '@material-ui/core'
 
 export type ChangedSpanIntoInputPropsType = {
     title: string
@@ -18,9 +18,9 @@ export const ChangedSpanIntoInput: React.FC<ChangedSpanIntoInputPropsType> = Rea
     const editModOff = useCallback(() => {
         setEditMod(false)
         changeItemText(value)
-    }, [changeItemText,value])
+    }, [changeItemText, value])
     //-----input------
-    const onChangeInputText =(e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeInputText = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
 
