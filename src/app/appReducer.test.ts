@@ -1,4 +1,4 @@
-import {StatusType, changeStatusAC, appReducer, changeErrorTextAC} from './appReducer'
+import {StatusType, changeAppStatusAC, appReducer, changeErrorTextAC} from './appReducer'
 
 type StateType = {
     status: StatusType
@@ -13,7 +13,7 @@ beforeEach(() => {
 })
 
 test('Change status of App', () => {
-    const endState = appReducer(state, changeStatusAC('succeeded'))
+    const endState = appReducer(state, changeAppStatusAC('succeeded'))
     endState &&
     expect(endState.status).toBe('succeeded')
 })

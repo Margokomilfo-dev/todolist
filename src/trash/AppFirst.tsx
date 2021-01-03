@@ -22,10 +22,10 @@ function AppFirst() {
 
     let order = 21;
     let [todolists, setTodolists] = useState<Array<TodolistDomainType>>([
-        {id: todolistID1, title: 'What I want to learn', filter: 'all', addedDate: '', order: order},
-        {id: todolistID2, title: 'React', filter: 'all', addedDate: '', order: order},
-        {id: todolistID3, title: 'JS', filter: 'all', addedDate: '', order: order},
-        {id: todolistID4, title: 'Useful', filter: 'all', addedDate: '', order: order},
+        {id: todolistID1, title: 'What I want to learn', filter: 'all', addedDate: '', order: order, entityStatus: 'idle'},
+        {id: todolistID2, title: 'React', filter: 'all', addedDate: '', order: order, entityStatus: 'idle'},
+        {id: todolistID3, title: 'JS', filter: 'all', addedDate: '', order: order, entityStatus: 'idle'},
+        {id: todolistID4, title: 'Useful', filter: 'all', addedDate: '', order: order, entityStatus: 'idle'},
     ])
 
     let [tasks, setTasks] = useState<TasksType>({
@@ -64,7 +64,7 @@ function AppFirst() {
 //-----------todolists---------
 
     const addNewTodolist = (inputValue: string) => {
-        let newTodolist: TodolistDomainType = {id: v1(), title: inputValue, filter: 'all', addedDate: '', order: order}
+        let newTodolist: TodolistDomainType = {id: v1(), title: inputValue, filter: 'all', addedDate: '', order: order, entityStatus: 'idle'}
         setTodolists([...todolists, newTodolist])
         setTasks({
             ...tasks,
@@ -165,9 +165,7 @@ function AppFirst() {
                                         <Paper elevation={5}>
                                             <Todolist
                                                 key={tl.id}
-                                                todolistId={tl.id}
-                                                title={tl.title}
-                                                filter={tl.filter}
+                                                todolist ={tl}
                                                 newArrTasks={newArrTasks}
                                                 removeTask={removeTask}
                                                 changeFilter={changeFilter}

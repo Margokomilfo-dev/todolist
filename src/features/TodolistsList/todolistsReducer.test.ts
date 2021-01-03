@@ -1,7 +1,7 @@
 import {v1} from "uuid"
 import {
     addTodolistAC, removeTodolistAC, todolistReducer,
-    changeTodolistTitleAC, changeTodolistFilterValueAC, TodolistDomainType, setTodolistsAC
+    changeTodolistTitleAC, changeTodolistFilterValueAC, TodolistDomainType, setTodolistsAC, changeTodolistEntityStatus
 } from './todolistsReducer'
 
 let todolists: Array<TodolistDomainType>;
@@ -12,8 +12,8 @@ beforeEach(() => {
     todolistID1 = v1()
     todolistID2 = v1()
     todolists = [
-        {id: todolistID1, title: 'What I want to learn', filter: 'all', addedDate: '', order: 1},
-        {id: todolistID2, title: 'React', filter: 'all', addedDate: '', order: 2},
+        {id: todolistID1, title: 'What I want to learn', filter: 'all', addedDate: '', order: 1, entityStatus: 'idle' },
+        {id: todolistID2, title: 'React', filter: 'all', addedDate: '', order: 2, entityStatus: 'idle'},
     ]
 });
 
@@ -57,6 +57,13 @@ test('Change filter of todolist',()=> {
 
     //expect result
     expect(endState[1].filter).toBe('active')
+})
+test('Change entityStatus of todolist',()=> {
+
+    const endState = todolistReducer(todolists, changeTodolistEntityStatus(todolistID2, 'loading'))
+
+    //expect result
+    expect(endState[1].entityStatus).toBe('loading')
 })
 test('Todolist should be set',()=> {
 

@@ -9,8 +9,9 @@ import {StatusType} from '../../app/appReducer'
 
 export type AddFormPropsType = {
     addNewItem: (inputValue: string) => void
+    disabled?: boolean
 }
-export const AddForm: React.FC<AddFormPropsType> = React.memo(({addNewItem}) => {
+export const AddForm: React.FC<AddFormPropsType> = React.memo(({addNewItem, disabled = false}) => {
     let [inputValue, setInputValue] = useState<string>('')
     let [error, setError] = useState<string | null>('')
     const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
@@ -41,6 +42,7 @@ export const AddForm: React.FC<AddFormPropsType> = React.memo(({addNewItem}) => 
     return (
         <div className={s.taskInput}>
             <TextField id="outlined-error-helper-text"
+                       disabled={disabled}
                        label={error ? 'error' : 'new task'}
                        variant="outlined"
                        color={'secondary'}
@@ -49,7 +51,7 @@ export const AddForm: React.FC<AddFormPropsType> = React.memo(({addNewItem}) => 
                        onKeyPress={addInputText}
                        error={Boolean(error)}
             />
-            <IconButton onClick={() => addTask(inputValue)} disabled={status === 'loading'}>
+            <IconButton onClick={() => addTask(inputValue)} disabled={disabled}>
                 <AddCircleOutlineTwoToneIcon color={'primary'} style={{padding: '0px'}}/>
             </IconButton>
             {error ? <div className={s.error}> {error} </div> : null}

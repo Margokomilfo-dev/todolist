@@ -3,23 +3,19 @@ import {ChangedSpanIntoInput} from '../ChangedSpanIntoInput/ChangedSpanIntoInput
 import React, {useCallback} from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
-import {useSelector} from 'react-redux'
-import {AppRootStateType} from '../../app/store'
-import {StatusType} from '../../app/appReducer'
+import {TodolistDomainType} from '../../features/TodolistsList/todolistsReducer'
 
 type TodolistHeaderPropsType = {
-    title: string
-    todolistId: string
+    todolist: TodolistDomainType
     removeTodolist: (todolistId: string) => void
     changeTodolistTitle: (newTitle: string, todolistId: string) => void
 }
 
 export const TodolistHeader: React.FC<TodolistHeaderPropsType> = React.memo(
-    ({removeTodolist, changeTodolistTitle, title, todolistId}) => {
-        const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
+    ({removeTodolist, changeTodolistTitle, todolist}) => {
         let deleteTodolist = useCallback(() => {
-            removeTodolist(todolistId)
-        }, [removeTodolist, todolistId])
+            removeTodolist(todolist.id)
+        }, [removeTodolist, todolist.id])
 
         let onChangeTitleText = useCallback((newTitle: string, todolistId: string) => {
             changeTodolistTitle(newTitle, todolistId)
@@ -27,12 +23,12 @@ export const TodolistHeader: React.FC<TodolistHeaderPropsType> = React.memo(
         return (
             <div className={s.todolistHeader}>
                 <div className={s.todolistTitle}>
-                    <ChangedSpanIntoInput title={title} changeItemText={(newTitle) => {
-                        onChangeTitleText(newTitle, todolistId)
+                    <ChangedSpanIntoInput title={todolist.title} changeItemText={(newTitle) => {
+                        onChangeTitleText(newTitle, todolist.id)
                     }}/>
                 </div>
                 <div>
-                    <IconButton aria-label="delete" onClick={deleteTodolist} disabled={status === 'loading'} >
+                    <IconButton aria-label="delete" onClick={deleteTodolist} disabled={todolist.entityStatus === 'loading'} >
                         <DeleteIcon color={'secondary'}/>
                     </IconButton>
                 </div>

@@ -5,7 +5,7 @@ import {Button} from "@material-ui/core"
 import {AddForm} from "../../../components/AddForm/AddForm"
 import {useDispatch} from "react-redux"
 import {actions, setTasksTC, addTaskTC} from '../tasksReducer'
-import {changeTodolistFilterValueAC, FilterValuesType} from "../todolistsReducer"
+import {changeTodolistFilterValueAC, FilterValuesType, TodolistDomainType} from '../todolistsReducer'
 import {Task} from "../../../components/Task/Task"
 import {TaskStatuses, TaskType} from "../../../api/api"
 
@@ -17,17 +17,15 @@ export type TodolistPropsType = {
     onCheckedBox?: any
     changeTaskTitleText?: any
 
-    todolistId: string
-    title: string
+    todolist: TodolistDomainType
     newArrTasks: Array<TaskType>
     removeTodolist: (todolistId: string) => void
-    filter: FilterValuesType
     changeTodolistTitle: (newTitle: string, todolistId: string) => void
     demo?: boolean
 }
 
-export const Todolist: React.FC<TodolistPropsType> = React.memo(({todolistId, changeTodolistTitle, title,
-                                                                     filter, newArrTasks, removeTodolist, demo = false,
+export const Todolist: React.FC<TodolistPropsType> = React.memo(({ changeTodolistTitle, todolist,
+                                                                     newArrTasks, removeTodolist, demo = false,
                                                                      ...props}) => {
 
     let dispatch = useDispatch()
@@ -35,56 +33,56 @@ export const Todolist: React.FC<TodolistPropsType> = React.memo(({todolistId, ch
         if (demo) {
             return
         }
-        dispatch(setTasksTC(todolistId))
+        dispatch(setTasksTC(todolist.id))
     },[])
 
     let allTasks = newArrTasks
-    if (filter === 'active') {
+    if (todolist.filter === 'active') {
         allTasks = newArrTasks.filter(t => t.status === TaskStatuses.New)
     }
-    if (filter === 'completed') {
+    if (todolist.filter === 'completed') {
         allTasks = newArrTasks.filter(t => t.status === TaskStatuses.Completed)
     }
 //-----------filter------------
     let onFilterAll = useCallback(() => {
-        dispatch(changeTodolistFilterValueAC(todolistId, 'all'))
-    }, [dispatch, todolistId])
+        dispatch(changeTodolistFilterValueAC(todolist.id, 'all'))
+    }, [dispatch, todolist.id])
     let onFilterActive = useCallback(() => {
-        dispatch(changeTodolistFilterValueAC(todolistId, 'active'))
-    }, [dispatch, todolistId])
+        dispatch(changeTodolistFilterValueAC(todolist.id, 'active'))
+    }, [dispatch, todolist.id])
     let onFilterCompleted = useCallback(() => {
-        dispatch(changeTodolistFilterValueAC(todolistId, 'completed'))
-    }, [dispatch, todolistId])
+        dispatch(changeTodolistFilterValueAC(todolist.id, 'completed'))
+    }, [dispatch, todolist.id])
 //------------title------------
 
     //----add tasks---
     const addNewTask = useCallback((inputValue: string) => {
-        dispatch(addTaskTC(todolistId, inputValue))
-    }, [dispatch, todolistId])
+        dispatch(addTaskTC(todolist.id, inputValue))
+    }, [dispatch, todolist.id])
 
     return (
         <div className={s.todolist}>
             <div>
-                <TodolistHeader title={title} todolistId={todolistId} removeTodolist={removeTodolist}
-                                changeTodolistTitle={changeTodolistTitle}/>
-                <AddForm addNewItem={addNewTask}/>
+                <TodolistHeader removeTodolist={removeTodolist}
+                                changeTodolistTitle={changeTodolistTitle} todolist={todolist}/>
+                <AddForm addNewItem={addNewTask} disabled={todolist.entityStatus === 'loading'} />
 
                 <div className={s.tasks}>
-                    {allTasks.map(t => <Task key={t.id} task={t} todolistId={todolistId}/>)}
+                    {allTasks.map(t => <Task key={t.id} task={t} todolistId={todolist.id}/>)}
                 </div>
             </div>
 
             <div className={s.filterButtons}>
                 <Button onClick={onFilterAll}
-                        variant={filter === 'all' ? 'outlined' : 'contained'}
+                        variant={todolist.filter === 'all' ? 'outlined' : 'contained'}
                         size={'small'}
                         style={{margin: '2px', width: '78px', fontSize: '11px'}}> All</Button>
                 <Button onClick={onFilterActive}
-                        variant={filter === 'active' ? 'outlined' : 'contained'}
+                        variant={todolist.filter === 'active' ? 'outlined' : 'contained'}
                         size={'small'}
                         style={{margin: '2px', width: '78px', fontSize: '11px'}}>Active</Button>
                 <Button onClick={onFilterCompleted}
-                        variant={filter === 'completed' ? 'outlined' : 'contained'}
+                        variant={todolist.filter === 'completed' ? 'outlined' : 'contained'}
                         size={'small'}
                         style={{margin: '2px', width: '78px', fontSize: '11px'}}>Completed</Button>
             </div>

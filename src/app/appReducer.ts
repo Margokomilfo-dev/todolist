@@ -14,7 +14,7 @@ export const appReducer = (state:StateType = intialState, action: ActionsType): 
     }
 }
 //actionCreators
-export const changeStatusAC = (status: StatusType) => ({type: typesAppReducer.SET_STATUS, status} as const)
+export const changeAppStatusAC = (status: StatusType) => ({type: typesAppReducer.SET_STATUS, status} as const)
 export const changeErrorTextAC = (error: null | string) => ({type: typesAppReducer.SET_ERROR, error} as const)
 
 
@@ -28,8 +28,8 @@ export enum typesAppReducer {
     SET_STATUS = 'todolist/appReducer/SET_STATUS',
     SET_ERROR = 'todolist/appReducer/SET_ERROR',
 }
-export type ChangeStatusACType = ReturnType<typeof changeStatusAC>
+export type ChangeAppStatusACType = ReturnType<typeof changeAppStatusAC>
 export type ChangeErrorTextACType = ReturnType<typeof changeErrorTextAC>
 type ActionsType =
-    | ChangeStatusACType
+    | ChangeAppStatusACType
     | ChangeErrorTextACType

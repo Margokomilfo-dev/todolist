@@ -22,8 +22,8 @@ function AppWithUseReducer() {
     const todolistID2 = v1()
 
     let [todolists, dispatchToTodolist] = useReducer(todolistReducer, [
-        {id: todolistID1, title: 'What I want to learn', filter: 'all', addedDate: '', order: 1},
-        {id: todolistID2, title: 'React', filter: 'all', addedDate: '', order: 2},
+        {id: todolistID1, title: 'What I want to learn', filter: 'all', addedDate: '', order: 1, entityStatus: 'idle'},
+        {id: todolistID2, title: 'React', filter: 'all', addedDate: '', order: 2, entityStatus: 'idle'},
     ])
 
     let [tasks, dispatchToTasks] = useReducer(tasksReducer, {
@@ -125,9 +125,7 @@ function AppWithUseReducer() {
                                         <Paper elevation={5}>
                                             <Todolist
                                                 key={tl.id}
-                                                todolistId={tl.id}
-                                                title={tl.title}
-                                                filter={tl.filter}
+                                                todolist={tl}
                                                 newArrTasks={newArrTasks}
                                                 removeTask={removeTask}
                                                 changeFilter={changeFilter}
