@@ -7,10 +7,12 @@ import {todolistReducer} from "../features/TodolistsList/todolistsReducer";
 import { AppRootStateType } from '../app/store'
 import {TaskPriorities, TaskStatuses} from "../api/api";
 import thunk from 'redux-thunk'
+import {appReducer} from '../app/appReducer'
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
-    todolists: todolistReducer
+    todolists: todolistReducer,
+    app: appReducer
 })
 
 const initialGlobalState = {
@@ -36,6 +38,10 @@ const initialGlobalState = {
             {id: v1(), status: TaskStatuses.Completed, title: 'Tasks from Ignat', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID2'},
             {id: v1(), status: TaskStatuses.New, title: 'documentation', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: 'todolistID2'}
         ]
+    },
+    app: {
+        status: 'idle',
+        error: null
     }
 };
 

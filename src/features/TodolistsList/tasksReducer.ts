@@ -6,6 +6,7 @@ import {
 import {ModelType, tasksApi, TaskStatuses, TaskType} from '../../api/api'
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
+import {changeErrorTextAC, ChangeErrorTextACType, changeStatusAC, ChangeStatusACType} from '../../app/appReducer'
 
 const initialState: TasksType = {}
 export const tasksReducer = (state: TasksType = initialState, action: ActionsType) => {
@@ -60,26 +61,43 @@ export const actions = {
 }
 
 // thunks
-export const setTasksTC = (todolistID: string) => (dispatch: Dispatch<ActionsType>) => {
+export const setTasksTC = (todolistID: string) => (dispatch: Dispatch<ActionsType | ChangeStatusACType>) => {
+    dispatch(changeStatusAC('loading'))
     tasksApi.getTasks(todolistID)
         .then(res => {
             dispatch(actions.setTasksAC(todolistID, res.data.items))
+            dispatch(changeStatusAC('succeeded'))
+
         })
 }
-export const addTaskTC = (todolistID: string, title: string) => (dispatch: Dispatch<ActionsType>) => {
+export const addTaskTC = (todolistID: string, title: string) => (dispatch: Dispatch<ActionsType | ChangeStatusACType | ChangeErrorTextACType>) => {
+    dispatch(changeStatusAC('loading'))
     tasksApi.createTask(todolistID, title)
         .then(res => {
-            dispatch(actions.addNewTaskAC(res.data.data.item))
+            if (res.data.resultCode === 0) {
+                dispatch(actions.addNewTaskAC(res.data.data.item))
+                dispatch(changeStatusAC('succeeded'))
+
+            } else if (res.data.messages.length){
+                dispatch(changeStatusAC('failed'))
+                dispatch(changeErrorTextAC(res.data.messages[0]))
+            }
         })
+        // .catch(err => {
+        //     dispatch(changeStatusAC('failed'))
+        //     dispatch(changeErrorTextAC(err))
+        // })
 }
-export const deleteTaskTC = (todolistID: string, taskID: string) => (dispatch: Dispatch<ActionsType>) => {
+export const deleteTaskTC = (todolistID: string, taskID: string) => (dispatch: Dispatch<ActionsType | ChangeStatusACType>) => {
+    dispatch(changeStatusAC('loading'))
     tasksApi.deleteTask(todolistID, taskID)
         .then(res => {
             dispatch(actions.removeTaskAC(todolistID, taskID))
+            dispatch(changeStatusAC('succeeded'))
         })
 }
 export const changeTaskTitleTC = (todolistID: string, taskID: string, title: string) =>
-    (dispatch: Dispatch<ActionsType>, getState: () => AppRootStateType) => {
+    (dispatch: Dispatch<ActionsType | ChangeStatusACType>, getState: () => AppRootStateType) => {
 
         const state = getState()
         const task = state.tasks[todolistID].find(t => t.id === taskID)
@@ -96,14 +114,15 @@ export const changeTaskTitleTC = (todolistID: string, taskID: string, title: str
             status: task.status,
             title: title
         }
-
+        dispatch(changeStatusAC('loading'))
         tasksApi.updateTask(todolistID, taskID, model)
             .then(res => {
                 dispatch(actions.changeTaskTitleTextAC(todolistID, taskID, title))
+                dispatch(changeStatusAC('succeeded'))
             })
     }
 export const changeTaskCheckedTC = (todolistID: string, taskID: string, status: TaskStatuses) =>
-    (dispatch: Dispatch<ActionsType>, getState: () => AppRootStateType) => {
+    (dispatch: Dispatch<ActionsType | ChangeStatusACType>, getState: () => AppRootStateType) => {
 
         const state = getState()
         const task = state.tasks[todolistID].find(t => t.id === taskID)
@@ -120,9 +139,11 @@ export const changeTaskCheckedTC = (todolistID: string, taskID: string, status: 
             status: status,
             title: task.title
         }
+        dispatch(changeStatusAC('loading'))
         tasksApi.updateTask(todolistID, taskID, model)
             .then(res => {
                 dispatch(actions.changeCheckedStatusAC(todolistID, taskID, status))
+                dispatch(changeStatusAC('succeeded'))
             })
     }
 

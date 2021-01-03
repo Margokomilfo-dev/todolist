@@ -3,6 +3,9 @@ import s from '../../features/TodolistsList/Todolist/Todolist.module.css'
 import {TextField} from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import AddCircleOutlineTwoToneIcon from '@material-ui/icons/AddCircleOutlineTwoTone'
+import {useSelector} from 'react-redux'
+import {AppRootStateType} from '../../app/store'
+import {StatusType} from '../../app/appReducer'
 
 export type AddFormPropsType = {
     addNewItem: (inputValue: string) => void
@@ -10,6 +13,7 @@ export type AddFormPropsType = {
 export const AddForm: React.FC<AddFormPropsType> = React.memo(({addNewItem}) => {
     let [inputValue, setInputValue] = useState<string>('')
     let [error, setError] = useState<string | null>('')
+    const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
 
     let addTask = useCallback((inputValue: string) => {
         if (inputValue.trim()) {
@@ -45,7 +49,7 @@ export const AddForm: React.FC<AddFormPropsType> = React.memo(({addNewItem}) => 
                        onKeyPress={addInputText}
                        error={Boolean(error)}
             />
-            <IconButton onClick={() => addTask(inputValue)}>
+            <IconButton onClick={() => addTask(inputValue)} disabled={status === 'loading'}>
                 <AddCircleOutlineTwoToneIcon color={'primary'} style={{padding: '0px'}}/>
             </IconButton>
             {error ? <div className={s.error}> {error} </div> : null}

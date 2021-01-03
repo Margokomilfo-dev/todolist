@@ -3,6 +3,9 @@ import {ChangedSpanIntoInput} from '../ChangedSpanIntoInput/ChangedSpanIntoInput
 import React, {useCallback} from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
+import {useSelector} from 'react-redux'
+import {AppRootStateType} from '../../app/store'
+import {StatusType} from '../../app/appReducer'
 
 type TodolistHeaderPropsType = {
     title: string
@@ -13,6 +16,7 @@ type TodolistHeaderPropsType = {
 
 export const TodolistHeader: React.FC<TodolistHeaderPropsType> = React.memo(
     ({removeTodolist, changeTodolistTitle, title, todolistId}) => {
+        const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
         let deleteTodolist = useCallback(() => {
             removeTodolist(todolistId)
         }, [removeTodolist, todolistId])
@@ -28,7 +32,7 @@ export const TodolistHeader: React.FC<TodolistHeaderPropsType> = React.memo(
                     }}/>
                 </div>
                 <div>
-                    <IconButton aria-label="delete" onClick={deleteTodolist}>
+                    <IconButton aria-label="delete" onClick={deleteTodolist} disabled={status === 'loading'} >
                         <DeleteIcon color={'secondary'}/>
                     </IconButton>
                 </div>

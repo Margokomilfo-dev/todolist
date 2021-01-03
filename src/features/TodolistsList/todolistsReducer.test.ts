@@ -17,7 +17,6 @@ beforeEach(() => {
     ]
 });
 
-
 test('Add new todolist',()=> {
     //data
     const newTitle = 'What to buy'

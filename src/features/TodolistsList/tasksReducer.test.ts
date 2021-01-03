@@ -159,4 +159,4 @@ test('tasks should be added', () => {
         {id: '2', status: TaskStatuses.New, title: 'Task2', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
         {id: '3',status: TaskStatuses.New, title: 'hello', addedDate: '', deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', todoListId: todolistID2},
     ])
-});
+})
