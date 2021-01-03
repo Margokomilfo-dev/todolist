@@ -13,4 +13,6 @@ export default {
 const Template: Story = (args) => <App {...args}/>
 
 export const AppWithReduxExample = Template.bind({});
-AppWithReduxExample.args = {}
+AppWithReduxExample.args = {
+    demo: true
+}

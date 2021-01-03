@@ -8,7 +8,11 @@ import {AppRootStateType} from './store'
 import {StatusType} from './appReducer'
 import CustomizedSnackbars from '../components/SnackBar/SnackBar'
 
-function App() {
+type AppPropsType = {
+    demo?: boolean
+}
+
+function App({demo = false}) {
     const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
     return (
         <div className='app'>
@@ -24,9 +28,12 @@ function App() {
 
             </AppBar>
             <Container>
-                <TodolistsList/>
+                <TodolistsList demo={demo}/>
             </Container>
-            <CustomizedSnackbars/>
+            <div className='snackBar'>
+                <CustomizedSnackbars/>
+            </div>
+
         </div>
     )
 }
