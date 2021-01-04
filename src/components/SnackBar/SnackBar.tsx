@@ -5,7 +5,7 @@ import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../app/store'
-import {changeErrorTextAC, StatusType} from '../../app/appReducer'
+import {changeAppErrorTextAC, StatusType} from '../../app/appReducer'
 
 function SnackBar(props: AlertProps) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -19,7 +19,7 @@ export default function CustomizedSnackbars() {
         if (reason === 'clickaway') {
             return;
         }
-        dispatch(changeErrorTextAC(null))
+        dispatch(changeAppErrorTextAC(null))
     };
 
     return (

@@ -37,7 +37,7 @@ type AuthDataType = {
     email: string
     login: string
 }
-type ResponseType<T = {}> = {
+export type ResponseType<T = {}> = {
     fieldsErrors: Array<string>
     resultCode: number
     messages: Array<string>
