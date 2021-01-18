@@ -49,7 +49,7 @@ export const Login = () => {
                             </a>
                         </p>
                         <p>or use common test account credentials:</p>
-                        <p><span>Email: </span>Email: free@samuraijs.com</p>
+                        <p><span>Email: </span> free@samuraijs.com</p>
                         <p><span>Password: </span> free</p>
                     </FormLabel>
                     <FormGroup>
@@ -57,9 +57,7 @@ export const Login = () => {
                             label="Email"
                             margin="normal"
                             name="email"
-                            onChange={formik.handleChange}
-                            value={formik.values.email}
-                            onBlur={formik.handleBlur}
+                            {...formik.getFieldProps('email')}
                         />
                         {formik.touched.email && formik.errors.email ?
                             <div className={s.error}>{formik.errors.email}</div> : null}
@@ -68,9 +66,7 @@ export const Login = () => {
                             label="Password"
                             margin="normal"
                             name="password"
-                            onChange={formik.handleChange}
-                            value={formik.values.password}
-                            onBlur={formik.handleBlur}
+                            {...formik.getFieldProps('password')}
                         />
                         {formik.touched.password && formik.errors.password ?
                             <div className={s.error}>{formik.errors.password}</div> : null}
@@ -78,8 +74,7 @@ export const Login = () => {
                             label={'Remember me'}
                             control={<Checkbox/>}
                             name="rememberMe"
-                            onChange={formik.handleChange}
-                            value={formik.values.rememberMe}
+                            {...formik.getFieldProps('rememberMe')}
                         />
                         <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
                     </FormGroup>
