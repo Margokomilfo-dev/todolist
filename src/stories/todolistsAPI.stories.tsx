@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Meta} from '@storybook/react/types-6-0'
-import {todolistsApi} from '../api/api';
+import {authApi, todolistsApi} from '../api/api'
 
 export default {
     title: 'API/Todolists'
@@ -9,7 +9,7 @@ export default {
 export const AuthMe = () => {
     const [state, setState] = useState<any>('')
     useEffect(() => {
-        todolistsApi.authMe()
+        authApi.authMe()
             .then(res => {
                 if (res.resultCode === 0) {
                     setState(res.data)

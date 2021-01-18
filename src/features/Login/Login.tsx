@@ -2,6 +2,8 @@ import React from 'react'
 import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
 import {useFormik} from 'formik'
 import s from './Login.module.css'
+import {useDispatch} from 'react-redux'
+import { loginTC } from './authReducer'
 
 type FormikErrorType = {
     email?: string
@@ -10,6 +12,8 @@ type FormikErrorType = {
 }
 
 export const Login = () => {
+    const dispatch = useDispatch()
+
     const validate = (values: { email: string, password: string, rememberMe: boolean }) => {
         const errors: FormikErrorType = {}
         if (!values.password) {
@@ -35,6 +39,8 @@ export const Login = () => {
         validate,
         onSubmit: values => {
             alert(JSON.stringify(values))
+            formik.resetForm()
+            dispatch(loginTC(values))
         },
     })
 

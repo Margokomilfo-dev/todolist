@@ -6,6 +6,7 @@ export enum TaskStatuses {
     Completed = 2,
     Draft = 3,
 }
+
 export enum TaskPriorities {
     Low = 0,
     Middle = 1,
@@ -13,6 +14,7 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4,
 }
+
 export type TaskType = {
     description: string
     title: string
@@ -68,20 +70,33 @@ export type ModelType = {
     deadline: string
 }
 
+export type LoginPayloadType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: boolean
+}
 
 
 const instance = axios.create({
-    baseURL: "https://social-network.samuraijs.com/api/1.1/",
+    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     withCredentials: true,
     headers: {
         'API-KEY': '4ecc4fdb-da6b-45f9-bb99-93bccea55cd4'
     }
 })
-
-export const todolistsApi = {
+export const authApi = {
     authMe: () => {
         return instance.get<ResponseType<AuthDataType>>('auth/me').then(res => res.data)
     },
+    login: (payload: LoginPayloadType) => {
+        return instance.post<ResponseType<{ userId: number }>>('/auth/login', {...payload}).then(res => res.data)
+    },
+    logOut: () => {
+        return instance.delete<ResponseType>('/auth/login').then(res => res.data)
+    }
+}
+export const todolistsApi = {
     getTodolists: () => {
         return instance.get<Array<TodolistsType>>('todo-lists').then(res => res.data)
     },
@@ -101,7 +116,7 @@ export const tasksApi = {
         return instance.get<ResponseGetTaskType>(`todo-lists/${todolistId}/tasks`)
     },
     createTask: (todolistId: string, title: string) => {
-        return instance.post<ResponseType<{item: TaskType}>>(`todo-lists/${todolistId}/tasks`, {title})
+        return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, {title})
     },
     updateTask: (todolistId: string, taskId: string, model: ModelType) => {
         return instance.put<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`, {...model})
