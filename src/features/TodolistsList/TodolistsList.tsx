@@ -12,22 +12,24 @@ import {TasksType} from './tasksReducer'
 import {Grid, Paper} from '@material-ui/core'
 import {AddForm} from '../../components/AddForm/AddForm'
 import {Todolist} from './Todolist/Todolist'
+import {Redirect} from 'react-router-dom'
 
 type TodolistsListPropsType = {
     demo?: boolean
 }
 export const TodolistsList: React.FC<TodolistsListPropsType> = ({demo = false}) => {
-    let todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
-    let tasks = useSelector<AppRootStateType, TasksType>(state => state.tasks)
-
-    let dispatch = useDispatch()
-
     useEffect(() => {
-        if (demo) {
+        if (demo || !isLogin) {
             return
         }
         dispatch(setTodolistsTC())
     }, [])
+
+    let todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
+    let tasks = useSelector<AppRootStateType, TasksType>(state => state.tasks)
+    const isLogin = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    let dispatch = useDispatch()
+
 
     const addNewTodolist = useCallback((inputValue: string) => {
         dispatch(addNewTodolistTC(inputValue))
@@ -41,6 +43,9 @@ export const TodolistsList: React.FC<TodolistsListPropsType> = ({demo = false}) 
         dispatch(deleteTodolistTC(todolistId))
     }, [dispatch])
 
+    if (!isLogin) {
+        return <Redirect to={'/login'}/>
+    }
     return (
 
         <>
