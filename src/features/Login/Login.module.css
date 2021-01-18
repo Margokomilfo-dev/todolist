@@ -1,0 +1,11 @@
+.info p{
+    line-height: 7px;
+}
+.info p span{
+    font-weight: 600;
+}
+.error {
+    color: red;
+    margin-top: -10px;
+    font-size: 12px;
+}
