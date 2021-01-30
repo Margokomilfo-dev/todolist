@@ -19,7 +19,7 @@ export default function CustomizedSnackbars() {
         if (reason === 'clickaway') {
             return;
         }
-        dispatch(changeAppErrorTextAC(null))
+        dispatch(changeAppErrorTextAC({error: null}))
     };
 
     return (

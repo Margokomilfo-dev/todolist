@@ -1,6 +1,6 @@
 import {todolistsApi, TodolistsType} from '../../api/api'
 import {Dispatch} from 'redux'
-import {changeAppStatusAC, ChangeAppStatusACType, ChangeAppErrorTextACType, changeAppErrorTextAC, StatusType} from '../../app/appReducer'
+import {changeAppStatusAC, StatusType} from '../../app/appReducer'
 import { handleServerAppError, handleServerNetworkError } from '../../utills/error-utils'
 
 // variables
@@ -53,25 +53,25 @@ export const setTodolistsAC = (todolists: Array<TodolistsType>) =>
 
 
 // thunks
-export const setTodolistsTC = () => (dispatch: Dispatch<ActionsType | ChangeAppStatusACType | ChangeAppErrorTextACType>) => {
-    dispatch(changeAppStatusAC('loading'))
+export const setTodolistsTC = () => (dispatch: Dispatch) => {
+    dispatch(changeAppStatusAC({status: 'loading'}))
     todolistsApi.getTodolists()
         .then((res) => {
             dispatch(setTodolistsAC(res))
-            dispatch(changeAppStatusAC('succeeded'))
+            dispatch(changeAppStatusAC({status: 'succeeded'}))
         })
         .catch(err => {
             handleServerNetworkError(err, dispatch)
         })
 }
-export const deleteTodolistTC = (todolistID: string) => (dispatch: Dispatch<ActionsType | ChangeAppStatusACType | ChangeAppErrorTextACType >) => {
-    dispatch(changeAppStatusAC('loading'))
+export const deleteTodolistTC = (todolistID: string) => (dispatch: Dispatch) => {
+    dispatch(changeAppStatusAC({status: 'loading'}))
     dispatch(changeTodolistEntityStatus(todolistID, 'loading'))
     todolistsApi.deleteTodolist(todolistID)
         .then((res) => {
             if (res.data.resultCode === 0) {
                 dispatch(removeTodolistAC(todolistID))
-                dispatch(changeAppStatusAC('succeeded'))
+                dispatch(changeAppStatusAC({status: 'succeeded'}))
             } else {
                 handleServerAppError(res.data, dispatch)
             }
@@ -80,13 +80,13 @@ export const deleteTodolistTC = (todolistID: string) => (dispatch: Dispatch<Acti
             handleServerNetworkError(err, dispatch)
         })
 }
-export const addNewTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType | ChangeAppStatusACType | ChangeAppErrorTextACType>) => {
-    dispatch(changeAppStatusAC('loading'))
+export const addNewTodolistTC = (title: string) => (dispatch: Dispatch) => {
+    dispatch(changeAppStatusAC({status: 'loading'}))
     todolistsApi.createTodolist(title)
         .then((res) => {
             if (res.resultCode === 0){
                 dispatch(addTodolistAC(res.data.item))
-                dispatch(changeAppStatusAC('succeeded'))
+                dispatch(changeAppStatusAC({status: 'succeeded'}))
             }else {
                 handleServerAppError(res, dispatch)
             }
@@ -96,13 +96,16 @@ export const addNewTodolistTC = (title: string) => (dispatch: Dispatch<ActionsTy
 
         })
 }
-export const changeTodolistTitleTC = (todolistID: string, title: string) => (dispatch: Dispatch<ActionsType | ChangeAppStatusACType | ChangeAppErrorTextACType>) => {
-    dispatch(changeAppStatusAC('loading'))
+// types
+export type FilterValuesType = 'all' | 'active' | 'completed'
+
+export const changeTodolistTitleTC = (todolistID: string, title: string) => (dispatch: Dispatch) => {
+    dispatch(changeAppStatusAC({status: 'loading'}))
     todolistsApi.changeTodolistTitle(todolistID, title)
         .then((res) => {
             if (res.data.resultCode === 0) {
                 dispatch(changeTodolistTitleAC(todolistID, title))
-                dispatch(changeAppStatusAC('succeeded'))
+                dispatch(changeAppStatusAC({status: 'succeeded'}))
             } else {
                 handleServerAppError(res.data, dispatch)
             }
@@ -111,9 +114,6 @@ export const changeTodolistTitleTC = (todolistID: string, title: string) => (dis
             handleServerNetworkError(err, dispatch)
         })
 }
-
-// types
-export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TodolistDomainType = TodolistsType & {
     filter: FilterValuesType
     entityStatus: StatusType

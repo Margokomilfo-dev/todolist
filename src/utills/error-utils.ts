@@ -1,22 +1,20 @@
 import {
     changeAppErrorTextAC,
-    ChangeAppErrorTextACType,
     changeAppStatusAC,
-    ChangeAppStatusACType
 } from '../app/appReducer'
 import {ResponseType} from '../api/api'
 import {Dispatch} from 'redux'
 
-export const handleServerAppError = <D>(res: ResponseType<D>, dispatch: Dispatch<ChangeAppStatusACType | ChangeAppErrorTextACType>) => {
+export const handleServerAppError = <D>(res: ResponseType<D>, dispatch: Dispatch) => {
     if (res.messages.length) {
-        dispatch(changeAppErrorTextAC(res.messages[0]))
+        dispatch(changeAppErrorTextAC({error: res.messages[0]}))
     } else {
-        dispatch(changeAppErrorTextAC('Some error occurred'))
+        dispatch(changeAppErrorTextAC({error: 'Some error occurred'}))
     }
-    dispatch(changeAppStatusAC('failed'))
+    dispatch(changeAppStatusAC({status: 'failed'}))
 }
 
-export const handleServerNetworkError = (err: { message: string }, dispatch: Dispatch<ChangeAppStatusACType | ChangeAppErrorTextACType>) => {
-    dispatch(changeAppStatusAC('failed'))
-    dispatch(changeAppErrorTextAC(err.message ? err.message : 'Some error occurred'))
+export const handleServerNetworkError = (err: { message: string }, dispatch: Dispatch) => {
+    dispatch(changeAppStatusAC({status: 'failed'}))
+    dispatch(changeAppErrorTextAC(err.message ? {error: err.message} : {error: 'Some error occurred'}))
 }

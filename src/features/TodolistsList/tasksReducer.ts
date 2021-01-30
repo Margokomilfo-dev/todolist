@@ -1,13 +1,16 @@
 import {
-    ADD_TODOLIST, addTodolistAC, changeTodolistEntityStatus,
-    REMOVE_TODOLIST, removeTodolistAC,
-    SET_TODOLISTS, setTodolistsAC, changeTodolistEntityStatusType
+    ADD_TODOLIST,
+    addTodolistAC,
+    changeTodolistEntityStatusType,
+    REMOVE_TODOLIST,
+    removeTodolistAC,
+    SET_TODOLISTS,
+    setTodolistsAC
 } from './todolistsReducer'
 import {ModelType, tasksApi, TaskStatuses, TaskType} from '../../api/api'
 import {Dispatch} from 'redux'
 import {AppRootStateType} from '../../app/store'
-import {changeAppErrorTextAC, ChangeAppErrorTextACType, changeAppStatusAC, ChangeAppStatusACType} from '../../app/appReducer'
-import {Simulate} from 'react-dom/test-utils'
+import {changeAppStatusAC} from '../../app/appReducer'
 import {handleServerAppError, handleServerNetworkError} from '../../utills/error-utils'
 
 const initialState: TasksType = {}
@@ -63,21 +66,21 @@ export const actions = {
 }
 
 // thunks
-export const setTasksTC = (todolistID: string) => (dispatch: Dispatch<ActionsType | ChangeAppStatusACType>) => {
-    dispatch(changeAppStatusAC('loading'))
+export const setTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
+    dispatch(changeAppStatusAC({status: 'loading'}))
     tasksApi.getTasks(todolistID)
         .then(res => {
             dispatch(actions.setTasksAC(todolistID, res.data.items))
-            dispatch(changeAppStatusAC('succeeded'))
+            dispatch(changeAppStatusAC({status: 'succeeded'}))
         })
 }
-export const addTaskTC = (todolistID: string, title: string) => (dispatch: Dispatch<ActionsType | ChangeAppStatusACType | ChangeAppErrorTextACType>) => {
-    dispatch(changeAppStatusAC('loading'))
+export const addTaskTC = (todolistID: string, title: string) => (dispatch: Dispatch) => {
+    dispatch(changeAppStatusAC({status: 'loading'}))
     tasksApi.createTask(todolistID, title)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(actions.addNewTaskAC(res.data.data.item))
-                dispatch(changeAppStatusAC('succeeded'))
+                dispatch(changeAppStatusAC({status: 'succeeded'}))
 
             } else {
                 handleServerAppError(res.data, dispatch)
@@ -87,15 +90,14 @@ export const addTaskTC = (todolistID: string, title: string) => (dispatch: Dispa
             handleServerNetworkError(err, dispatch)
         })
 }
-export const deleteTaskTC = (todolistID: string, taskID: string) => (dispatch: Dispatch<ActionsType | ChangeAppStatusACType
-                                                                        | changeTodolistEntityStatusType | ChangeAppErrorTextACType>) => {
-    dispatch(changeAppStatusAC('loading'))
+export const deleteTaskTC = (todolistID: string, taskID: string) => (dispatch: Dispatch) => {
+    dispatch(changeAppStatusAC({ status: 'loading'}))
     // dispatch(changeTodolistEntityStatus(todolistID, 'loading'))
     tasksApi.deleteTask(todolistID, taskID)
         .then(res => {
             if (res.data.resultCode === 0){
                 dispatch(actions.removeTaskAC(todolistID, taskID))
-                dispatch(changeAppStatusAC('succeeded'))
+                dispatch(changeAppStatusAC({status: 'succeeded'}))
             } else {
                 handleServerAppError(res.data, dispatch)
             }
@@ -105,7 +107,7 @@ export const deleteTaskTC = (todolistID: string, taskID: string) => (dispatch: D
         })
 }
 export const changeTaskTitleTC = (todolistID: string, taskID: string, title: string) =>
-    (dispatch: Dispatch<ActionsType | ChangeAppStatusACType | ChangeAppErrorTextACType>, getState: () => AppRootStateType) => {
+    (dispatch: Dispatch, getState: () => AppRootStateType) => {
 
         const state = getState()
         const task = state.tasks[todolistID].find(t => t.id === taskID)
@@ -122,12 +124,12 @@ export const changeTaskTitleTC = (todolistID: string, taskID: string, title: str
             status: task.status,
             title: title
         }
-        dispatch(changeAppStatusAC('loading'))
+        dispatch(changeAppStatusAC({status: 'loading'}))
         tasksApi.updateTask(todolistID, taskID, model)
             .then(res => {
                 if (res.data.resultCode === 0) {
                     dispatch(actions.changeTaskTitleTextAC(todolistID, taskID, title))
-                    dispatch(changeAppStatusAC('succeeded'))
+                    dispatch(changeAppStatusAC({status: 'succeeded'}))
                 } else {
                     handleServerAppError(res.data, dispatch)
                 }
@@ -137,7 +139,7 @@ export const changeTaskTitleTC = (todolistID: string, taskID: string, title: str
             })
     }
 export const changeTaskCheckedTC = (todolistID: string, taskID: string, status: TaskStatuses) =>
-    (dispatch: Dispatch<ActionsType | ChangeAppStatusACType | ChangeAppErrorTextACType>, getState: () => AppRootStateType) => {
+    (dispatch: Dispatch, getState: () => AppRootStateType) => {
 
         const state = getState()
         const task = state.tasks[todolistID].find(t => t.id === taskID)
@@ -154,12 +156,12 @@ export const changeTaskCheckedTC = (todolistID: string, taskID: string, status: 
             status: status,
             title: task.title
         }
-        dispatch(changeAppStatusAC('loading'))
+        dispatch(changeAppStatusAC({status: 'loading'}))
         tasksApi.updateTask(todolistID, taskID, model)
             .then(res => {
                 if (res.data.resultCode === 0){
                     dispatch(actions.changeCheckedStatusAC(todolistID, taskID, status))
-                    dispatch(changeAppStatusAC('succeeded'))
+                    dispatch(changeAppStatusAC({status: 'succeeded'}))
                 } else {
                     handleServerAppError(res.data, dispatch)
                 }

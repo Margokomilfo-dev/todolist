@@ -23,12 +23,12 @@ export const authReducer = slice.reducer
 
 // thunks
 export const loginTC = (data: LoginPayloadType) => (dispatch: Dispatch) => {
-    dispatch(changeAppStatusAC('loading'))
+    dispatch(changeAppStatusAC({status: 'loading'}))
     authApi.login(data)
         .then(res => {
             if (res.resultCode === 0) {
                 dispatch(setIsLoggedInAC({value: true}))
-                dispatch(changeAppStatusAC('succeeded'))
+                dispatch(changeAppStatusAC({ status: 'succeeded'}))
             } else {
                 handleServerAppError(res, dispatch)
             }
@@ -38,12 +38,12 @@ export const loginTC = (data: LoginPayloadType) => (dispatch: Dispatch) => {
         })
 }
 export const loginOutTS = () => (dispatch: Dispatch) => {
-    dispatch(changeAppStatusAC('loading'))
+    dispatch(changeAppStatusAC({ status: 'loading'}))
     authApi.logOut()
         .then(res => {
             if (res.resultCode === 0) {
                 dispatch(setIsLoggedInAC({value: false}))
-                dispatch(changeAppStatusAC('succeeded'))
+                dispatch(changeAppStatusAC({ status: 'succeeded'}))
             } else {
                 handleServerAppError(res, dispatch)
             }
