@@ -22,7 +22,7 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todolistId}) => 
     }
     const onChangeTaskTitleText = useCallback((newTitle: string) => {
         dispatch(changeTaskTitleTC(todolistId, task.id, newTitle))
-        }, [dispatch])
+        }, [])
 
     return (
         <div key={task.id} className={`${s.task} + ${task.status === TaskStatuses.Completed ? s.taskCheckbox : ''}`}>
