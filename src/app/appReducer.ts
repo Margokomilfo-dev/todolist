@@ -30,7 +30,7 @@ export const isInitializedAC = (value: boolean) => ({type: typesAppReducer.IS_IN
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authApi.authMe().then(res => {
         if (res.resultCode === 0) {
-            dispatch(setIsLoggedInAC(true));
+            dispatch(setIsLoggedInAC({value: true}));
 
         } else {
         }
