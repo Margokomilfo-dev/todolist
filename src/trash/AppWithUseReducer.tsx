@@ -13,7 +13,7 @@ import {
     changeTodolistFilterValueAC,
     FilterValuesType
 } from "../features/TodolistsList/todolistsReducer"
-import {actions, tasksReducer} from '../features/TodolistsList/tasksReducer'
+import { tasksReducer, removeTaskAC, addNewTaskAC, changeTaskTitleTextAC, changeCheckedStatusAC} from '../features/TodolistsList/tasksReducer'
 import {TaskPriorities, TaskStatuses} from "../api/api";
 
 function AppWithUseReducer() {
@@ -49,42 +49,42 @@ function AppWithUseReducer() {
 //-----------todolists---------
 
     const addNewTodolist = (inputValue: string) => {
-        let action = addTodolistAC({id: 'todolist1', addedDate: '', order: 0, title: inputValue})
-        dispatchToTodolist(action)
-        dispatchToTasks(action)
+        // let action = addTodolistAC({id: 'todolist1', addedDate: '', order: 0, title: inputValue})
+        // dispatchToTodolist(action)
+        // dispatchToTasks(action)
 
     }
 
     const changeTodolistTitle = (title: string, todolistId: string) => {
-        dispatchToTodolist(changeTodolistTitleAC(title, todolistId))
+        dispatchToTodolist(changeTodolistTitleAC({newTitle: title, id: todolistId}))
     }
 
     const removeTodolist = (todolistId: string) => {
-        let action = removeTodolistAC(todolistId)
+        let action = removeTodolistAC({id: todolistId})
         dispatchToTodolist(action)
     }
 
 //------------tasks------------
     const removeTask = (taskId: string, todolistId: string) => {
-        dispatchToTasks(actions.removeTaskAC(todolistId, taskId))
+        dispatchToTasks(removeTaskAC({todolistId: todolistId, taskId: taskId}))
     }
 
     const addNewTask = (inputValue: string, todolistId: string) => {
-        dispatchToTasks(actions.addNewTaskAC({todoListId: todolistId,title: inputValue, status: TaskStatuses.New, addedDate: '' ,
-            deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', id: 'exists'}))
+        // dispatchToTasks(addNewTaskAC({todoListId: todolistId,title: inputValue, status: TaskStatuses.New, addedDate: '' ,
+        //     deadline: '', description: '', order: 0, priority: TaskPriorities.Low, startDate: '', id: 'exists'}))
     }
     const changeTaskTitleText = (taskId: string, newTitle: string, todolistId: string) => {
-        dispatchToTasks(actions.changeTaskTitleTextAC(todolistId, taskId, newTitle))
+        dispatchToTasks(changeTaskTitleTextAC({todolistId: todolistId, taskId: taskId, newTitle: newTitle}))
     }
 //-----------checkBox------------
     const onCheckedBox = (id: string, status: TaskStatuses, todolistId: string) => {
-        dispatchToTasks(actions.changeCheckedStatusAC(todolistId, id, status))
+        dispatchToTasks(changeCheckedStatusAC({todolistId: todolistId, taskId: id, status: status}))
     }
 
 //----------filterValue-------
 
     const changeFilter = (value: FilterValuesType, todolistId: string) => {
-        dispatchToTodolist(changeTodolistFilterValueAC(todolistId, value))
+        dispatchToTodolist(changeTodolistFilterValueAC({id: todolistId, newFilterValue: value}))
     }
 
     return (

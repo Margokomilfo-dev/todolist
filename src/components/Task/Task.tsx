@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux'
-import {actions, changeTaskCheckedTC, changeTaskTitleTC, deleteTaskTC} from '../../features/TodolistsList/tasksReducer'
+import { changeTaskCheckedTC, changeTaskTitleTC, deleteTaskTC} from '../../features/TodolistsList/tasksReducer'
 import s from '../../features/TodolistsList/Todolist/Todolist.module.css'
 import {ChangedSpanIntoInput} from '../ChangedSpanIntoInput/ChangedSpanIntoInput'
 import IconButton from '@material-ui/core/IconButton'

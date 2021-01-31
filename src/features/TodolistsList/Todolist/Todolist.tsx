@@ -4,7 +4,7 @@ import {TodolistHeader} from "../../../components/TodolistHeader/TodolistHeader"
 import {Button} from "@material-ui/core"
 import {AddForm} from "../../../components/AddForm/AddForm"
 import {useDispatch} from "react-redux"
-import {actions, setTasksTC, addTaskTC} from '../tasksReducer'
+import { setTasksTC, addTaskTC} from '../tasksReducer'
 import {changeTodolistFilterValueAC, FilterValuesType, TodolistDomainType} from '../todolistsReducer'
 import {Task} from "../../../components/Task/Task"
 import {TaskStatuses, TaskType} from "../../../api/api"
@@ -45,13 +45,13 @@ export const Todolist: React.FC<TodolistPropsType> = React.memo(({ changeTodolis
     }
 //-----------filter------------
     let onFilterAll = useCallback(() => {
-        dispatch(changeTodolistFilterValueAC(todolist.id, 'all'))
+        dispatch(changeTodolistFilterValueAC({id: todolist.id, newFilterValue: 'all'}))
     }, [dispatch, todolist.id])
     let onFilterActive = useCallback(() => {
-        dispatch(changeTodolistFilterValueAC(todolist.id, 'active'))
+        dispatch(changeTodolistFilterValueAC({id: todolist.id,  newFilterValue: 'active'}))
     }, [dispatch, todolist.id])
     let onFilterCompleted = useCallback(() => {
-        dispatch(changeTodolistFilterValueAC(todolist.id, 'completed'))
+        dispatch(changeTodolistFilterValueAC({id: todolist.id,  newFilterValue: 'completed'}))
     }, [dispatch, todolist.id])
 //------------title------------
 
