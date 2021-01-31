@@ -7,8 +7,8 @@ import {store} from './app/store'
 import {BrowserRouter} from 'react-router-dom'
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Provider store={store}>
+    <Provider store={store}>
+        <BrowserRouter>
             <App/>
-        </Provider>
-    </BrowserRouter>, document.getElementById('root'))
+        </BrowserRouter>
+    </Provider>, document.getElementById('root'))

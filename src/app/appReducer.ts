@@ -7,7 +7,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 const initialState: StateType = {
     status: 'idle',
     error: null,
-    isInitialized: false
+    isInitialized: true
 }
 
 const slice = createSlice({
